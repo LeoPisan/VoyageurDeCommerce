@@ -24,6 +24,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
                 case TypeAlgorithme.INSERTION_AU_PLUS_PROCHE: algo = new InsertionAuPlusProche(); break;
                 case TypeAlgorithme.PLUSPROCHEVOISIN: algo = new AlgoPlusProcheVoisin(); break;
                 case TypeAlgorithme.INSERTION_AU_PLUS_LOIN: algo = new InsertionAuPlusLoin(); break;
+                case TypeAlgorithme.VOISINAGE_TOURNEE: algo = new AlgoVoisinageTournee(); break;
 
                 default: throw new ExceptionAlgorithme("Vous n'avez pas modifié la fabrique des algorithmes !");
             }
