@@ -17,7 +17,15 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
+            this.Tournee.ListeLieux = listeLieux;
+            bool fin = false;
+            while (!fin)
+            {
+                foreach (Lieu l in Tournee.ListeLieux)
+                {
 
+                }
+            }
 
             stopwatch.Stop();
         }
