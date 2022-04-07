@@ -22,6 +22,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
                 case TypeAlgorithme.ALGOEXEMPLE: algo = new AlgoExemple(); break;
                 case TypeAlgorithme.CROISSANT: algo = new AlgorithmeCroissant(); break;
                 case TypeAlgorithme.PLUSPROCHE: algo = new InsertionAuPlusProche(); break;
+                case TypeAlgorithme.PLUSPROCHEVOISIN: algo = new AlgoPlusProcheVoisin(); break;
 
                 default: throw new ExceptionAlgorithme("Vous n'avez pas modifié la fabrique des algorithmes !");
             }

@@ -5,6 +5,7 @@
     {
         ALGOEXEMPLE,
         CROISSANT,
-        PLUSPROCHE
+        PLUSPROCHE,
+        PLUSPROCHEVOISIN
     }
 }
