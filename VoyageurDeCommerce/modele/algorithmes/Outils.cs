@@ -41,6 +41,11 @@ namespace VoyageurDeCommerce.modele.algorithmes
             return liste;
         }
 
+        /// <summary>
+        /// inverse la position de l'usine d'une liste et de son premier élément
+        /// </summary>
+        /// <param name="liste">liste à modifier</param>
+        /// <returns>nouvelle version de la liste</returns>
         public static List<Lieu> OrganiseUsine(List<Lieu> liste)
         {
             return (InverseElements(liste.IndexOf(UsineDepart(liste)), 0, liste));
