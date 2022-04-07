@@ -20,6 +20,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+
+            dernierVisite = Outils.UsineDepart(listeLieux);
             FloydWarshall.calculerDistances(listeLieux,listeRoute);
             aVisiter = listeLieux;
             while (aVisiter.Count > 0)
