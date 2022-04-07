@@ -40,5 +40,10 @@ namespace VoyageurDeCommerce.modele.algorithmes
             liste[b] = temp;
             return liste;
         }
+
+        public static List<Lieu> OrganiseUsine(List<Lieu> liste)
+        {
+            return (InverseElements(liste.IndexOf(UsineDepart(liste)), 0, liste));
+        }
     }
 }

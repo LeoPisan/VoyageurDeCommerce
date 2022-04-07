@@ -18,6 +18,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
+            this.Tournee = new Tournee(listeLieux);
             FloydWarshall.calculerDistances(listeLieux, listeRoute);
             List<Lieu> tempListe = listeLieux; //liste temporaire destinée à devenir la tournée
             bool fin = false;
