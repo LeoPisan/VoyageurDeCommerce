@@ -5,7 +5,7 @@
     {
         ALGOEXEMPLE,
         CROISSANT,
-        INSEETION_AU_PLUS_PROCHE,
+        INSERTION_AU_PLUS_PROCHE,
         PLUSPROCHEVOISIN
     }
 }
