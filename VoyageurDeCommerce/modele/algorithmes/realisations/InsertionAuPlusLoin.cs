@@ -32,7 +32,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             // Ajout de tout les lieux dans la tournee
             foreach (Lieu lieu in tempLieux)
             {
-                int positionLieu = Outils.IndexLieuPlusProcheTournee(lieu, Tournee);
+                int positionLieu = Outils.IndexLieuPlusLoinTournee(lieu, Tournee);
                 this.Tournee.ListeLieux.Insert(positionLieu, lieu);
                 stopwatch.Stop();
                 this.NotifyPropertyChanged("Tournee");
