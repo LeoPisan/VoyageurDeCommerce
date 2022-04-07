@@ -59,12 +59,12 @@ namespace VoyageurDeCommerce.modele.lieux
         public override string ToString()
         {
             string temp = "";
-            foreach (Lieu l in listeLieux)
+            for (int i = 0; i < listeLieux.Count; i++)
             {
-                if (listeLieux.IndexOf(l) < listeLieux.Count -1)
-                    temp += l.Nom + " => ";
+                if (i < listeLieux.Count -1)
+                    temp += listeLieux[i].Nom + " => ";
                 else
-                    temp += l.Nom;
+                    temp += listeLieux[i].Nom;
             }
             return temp;
         }

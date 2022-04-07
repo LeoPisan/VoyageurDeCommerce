@@ -112,5 +112,14 @@ namespace VoyageurDeCommerce.modele.algorithmes
             }
             return indexLieu;
         }
+
+        /// <summary>
+        /// ajoute le premier élément d'une tournée à la fin de celle-ci (on économise trois secondes de réflexions, c'est bokou)
+        /// </summary>
+        /// <param name="tourne">liste à réorganiser</param>
+        public static void FinCycle(Tournee tourne)
+        {
+            tourne.Add(tourne.ListeLieux[0]);
+        }
     }
 }
