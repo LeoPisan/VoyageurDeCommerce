@@ -129,8 +129,14 @@ namespace VoyageurDeCommerce.modele.distances
         }
 
 
-        // Renvoie la distance entre un lieu et un couple de lieu
-        // L.distance(A, B) = A.distance(L) + L.distance(B) − A.distance(B)
+        /// <summary> 
+        /// Renvoie la distance entre un lieu et un couple de lieu
+        /// L.distance(A, B) = A.distance(L) + L.distance(B) − A.distance(B)
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
         public static int DistanceCouple(Lieu L, Lieu A, Lieu B)
         {
             return Distance(A, L) + Distance(L, B) + Distance(A, B);
