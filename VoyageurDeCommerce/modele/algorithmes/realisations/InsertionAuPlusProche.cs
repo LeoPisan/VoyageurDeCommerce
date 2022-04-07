@@ -23,7 +23,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             FloydWarshall.calculerDistances(lieux, routes);
 
             // Création variable temporaire contenant les lieux
-            List<Lieu> tempLieux = lieux;
+            List<Lieu> tempLieux = Outils.OrganiseUsine(lieux);
 
             // Initialise la tournée
             Transfere(tempLieux[0], tempLieux);
@@ -32,7 +32,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             // Ajout de tout les lieux dans la tournee
             foreach (Lieu lieu in tempLieux)
             {
-                int positionLieu = FloydWarshall.IndexLieuPlusProcheTournee(lieu, Tournee);
+                int positionLieu = Outils.IndexLieuPlusProcheTournee(lieu, Tournee);
                 this.Tournee.ListeLieux.Insert(positionLieu, lieu);
                 stopwatch.Stop();
                 this.NotifyPropertyChanged("Tournee");

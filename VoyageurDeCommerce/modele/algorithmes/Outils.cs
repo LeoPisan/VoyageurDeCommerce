@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VoyageurDeCommerce.modele.lieux;
+using VoyageurDeCommerce.modele.distances;
 
 namespace VoyageurDeCommerce.modele.algorithmes
 {
@@ -44,6 +45,38 @@ namespace VoyageurDeCommerce.modele.algorithmes
         public static List<Lieu> OrganiseUsine(List<Lieu> liste)
         {
             return (InverseElements(liste.IndexOf(UsineDepart(liste)), 0, liste));
+        }
+
+
+
+
+
+        /// <summary>
+        /// Renvoie l'index du lieu où aprèes lequel on insère un lieu à une tournee de façon optimale
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="T"></param>
+        public static int IndexLieuPlusProcheTournee(Lieu L, Tournee T)
+        {
+            int couplePositionLieu = 1;
+            int temp;
+            int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
+            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            {
+                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                if (temp < min)
+                {
+                    couplePositionLieu = i;
+                    min = temp;
+                }
+            }
+            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            if (temp < min)
+            {
+                couplePositionLieu = 0;
+                min = temp;
+            }
+            return couplePositionLieu;
         }
     }
 }
