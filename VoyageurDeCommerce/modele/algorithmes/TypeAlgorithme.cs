@@ -5,6 +5,6 @@
     {
         ALGOEXEMPLE,
         CROISSANT,
-        PLUSPROCHE
+        INSERTION_AU_PLUS_PROCHE
     }
 }

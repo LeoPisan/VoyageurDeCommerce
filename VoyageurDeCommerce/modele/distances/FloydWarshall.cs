@@ -129,17 +129,88 @@ namespace VoyageurDeCommerce.modele.distances
         }
 
 
-        // Renvoie la distance
+        // Renvoie la distance entre un lieu et un couple de lieu
+        // L.distance(A, B) = A.distance(L) + L.distance(B) − A.distance(B)
         public static int DistanceCouple(Lieu L, Lieu A, Lieu B)
         {
             return Distance(A, L) + Distance(L, B) + Distance(A, B);
         }
 
-        public static int Distance(Lieu L, Tournee T)
-        {
-            int res = 0;
 
-            return res;
+        /// <summary>
+        /// Renvoie la distance entre un lieu et une tournée
+        /// L.distance(T) = M in(L.distance(A, B), L.distance(B, C), L.distance(C, D), L.distance(D, A)
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="T"></param>
+        public static int DistanceTournee(Lieu L, Tournee T)
+        {
+            int temp;
+            int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
+            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            {
+                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                if (temp < min)
+                {
+                    min = temp;
+                }
+            }
+            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            if (temp < min)
+            {
+                min = temp;
+            }
+            return min;
         }
+
+
+        /// <summary>
+        /// Renvoie un couple de lieu où insérer un lieu à une tournee de façon optimale
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="T"></param>
+        public static int LieuPlusProcheTournee(Lieu L, Tournee T)
+        {
+            int couplePositionLieu = 0;
+            int temp;
+            int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
+            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            {
+                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                if (temp < min)
+                {
+                    couplePositionLieu = i;
+                    min = temp;
+                }
+            }
+            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            if (temp < min)
+            {
+                couplePositionLieu = 0;
+                min = temp;
+            }
+            return couplePositionLieu;
+        }
+
+
+        /// <summary>
+        /// Renvoie le lieu le plus loin au point A
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="listeLieux"></param>
+        public static Lieu PlusLoin(Lieu A, List<Lieu> listeLieux)
+        {
+            Lieu max = listeLieux[0];
+            foreach (Lieu lieu in listeLieux)
+            {
+                if (Distance(A, lieu) > Distance(A, max))
+                {
+                    max = lieu;
+                }
+            }
+            return max;
+        }
+
+
     }
 }
