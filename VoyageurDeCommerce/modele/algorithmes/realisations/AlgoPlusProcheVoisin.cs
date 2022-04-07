@@ -13,6 +13,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
     {
         private Lieu dernierVisite;
         private List<Lieu> aVisiter;
+        private Lieu usineDepart;
 
         public override string Nom => "Plus proche voisin";
 
@@ -21,7 +22,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            dernierVisite = Outils.UsineDepart(listeLieux);
+            usineDepart = dernierVisite = Outils.UsineDepart(listeLieux);
             FloydWarshall.calculerDistances(listeLieux,listeRoute);
             aVisiter = listeLieux;
             while (aVisiter.Count > 0)
@@ -34,6 +35,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 aVisiter.Remove(suivant);
                 dernierVisite = suivant;
             }
+            this.Tournee.Add(usineDepart);
+            this.NotifyPropertyChanged("Tournee");
             stopwatch.Stop();
         }
 

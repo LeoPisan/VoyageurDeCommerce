@@ -56,7 +56,7 @@ namespace VoyageurDeCommerce.modele.lieux
             string temp = "";
             foreach (Lieu l in listeLieux)
             {
-                if (listeLieux.IndexOf(l) < listeLieux.Count - 1)
+                if (listeLieux.IndexOf(l) < listeLieux.Count -1)
                     temp += l.Nom + " => ";
                 else
                     temp += l.Nom;
