@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VoyageurDeCommerce.modele.lieux;
+using VoyageurDeCommerce.modele.distances;
 
 namespace VoyageurDeCommerce.modele.algorithmes.realisations
 {
@@ -17,13 +18,19 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            this.Tournee.ListeLieux = listeLieux;
+            FloydWarshall.calculerDistances(listeLieux, listeRoute);
+            List<Lieu> tempListe = listeLieux; //liste temporaire destinée à devenir la tournée
             bool fin = false;
             while (!fin)
             {
-                foreach (Lieu l in Tournee.ListeLieux)
+                foreach (Lieu l in tempListe) //on teste toutes les tournées voisines
                 {
-
+                    int indexA = tempListe.IndexOf(l);
+                    List<Lieu> testListe = Outils.InverseElements(indexA, indexA + 1, tempListe);
+                    if (this.Tournee.Distance > new Tournee(testListe).Distance) //si la tournée voisine est plus courte alors on la prend à la place de l'ancienne
+                    {
+                        this.Tournee = new Tournee(testListe);
+                    }
                 }
             }
 
