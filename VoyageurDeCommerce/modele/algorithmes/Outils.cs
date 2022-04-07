@@ -63,7 +63,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="T"></param>
         public static int IndexLieuPlusProcheTournee(Lieu L, Tournee T)
         {
-            int couplePositionLieu = 1;
+            int indexLieu = 1;
             int temp;
             int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
             for (int i = 1; i < T.ListeLieux.Count - 1; i++)
@@ -71,17 +71,46 @@ namespace VoyageurDeCommerce.modele.algorithmes
                 temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
                 if (temp < min)
                 {
-                    couplePositionLieu = i;
+                    indexLieu = i;
                     min = temp;
                 }
             }
             temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
             if (temp < min)
             {
-                couplePositionLieu = 0;
+                indexLieu = 0;
                 min = temp;
             }
-            return couplePositionLieu;
+            return indexLieu;
+        }
+
+
+        /// <summary>
+        /// Renvoie l'index du lieu où aprèes lequel on insère un lieu à une tournee de façon optimale
+        /// </summary>
+        /// <param name="L"></param>
+        /// <param name="T"></param>
+        public static int IndexLieuPlusLoinTournee(Lieu L, Tournee T)
+        {
+            int indexLieu = 1;
+            int temp;
+            int max = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
+            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            {
+                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                if (temp > max)
+                {
+                    indexLieu = i;
+                    max = temp;
+                }
+            }
+            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            if (temp > max)
+            {
+                indexLieu = 0;
+                max = temp;
+            }
+            return indexLieu;
         }
     }
 }
