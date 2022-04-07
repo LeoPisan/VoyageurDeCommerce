@@ -37,6 +37,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             stopwatch.Stop();
         }
 
+        /// <summary>
+        /// renvoie le magasin non visité le plus proche
+        /// </summary>
+        /// <returns></returns>
         private Lieu MagasinProcheNonVisite()
         {
             int min = FloydWarshall.Distance(dernierVisite, aVisiter[0]);
