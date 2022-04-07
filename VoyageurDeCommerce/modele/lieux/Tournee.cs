@@ -27,6 +27,11 @@ namespace VoyageurDeCommerce.modele.lieux
             this.listeLieux = new List<Lieu>(modele.listeLieux);
         }
 
+        public Tournee (List<Lieu> modele)
+        {
+            this.listeLieux = modele;
+        }
+
         /// <summary>
         /// Ajoute un lieu à la tournée (fin)
         /// </summary>
