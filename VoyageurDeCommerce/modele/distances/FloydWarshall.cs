@@ -165,13 +165,13 @@ namespace VoyageurDeCommerce.modele.distances
 
 
         /// <summary>
-        /// Renvoie un couple de lieu où insérer un lieu à une tournee de façon optimale
+        /// Renvoie l'index du lieu où aprèes lequel on insère un lieu à une tournee de façon optimale
         /// </summary>
         /// <param name="L"></param>
         /// <param name="T"></param>
-        public static int LieuPlusProcheTournee(Lieu L, Tournee T)
+        public static int IndexLieuPlusProcheTournee(Lieu L, Tournee T)
         {
-            int couplePositionLieu = 0;
+            int couplePositionLieu = 1;
             int temp;
             int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
             for (int i = 1; i < T.ListeLieux.Count - 1; i++)

@@ -34,7 +34,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             
             foreach (Lieu lieu in tempLieux)
             {
-                int positionLieu = FloydWarshall.LieuPlusProcheTournee(lieu, Tournee);
+                int positionLieu = FloydWarshall.IndexLieuPlusProcheTournee(lieu, Tournee);
                 this.Tournee.ListeLieux.Insert(positionLieu, lieu);
                 Console.WriteLine(Tournee.ToString());
                 stopwatch.Stop();
