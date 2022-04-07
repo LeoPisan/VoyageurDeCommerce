@@ -11,19 +11,28 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
     class AlgoPlusProcheVoisin : Algorithme
     {
         private Lieu dernierVisite;
+        private List<Lieu> aVisiter;
 
         public override string Nom => "Plus proche voisin";
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
-            
+            FloydWarshall.calculerDistances(listeLieux,listeRoute);
+            aVisiter = listeLieux;
+            while (aVisiter.Count > 0)
+            {
+                Lieu suivant = MagasinProcheNonVisite();
+                this.Tournee.ListeLieux.Add(suivant);
+                aVisiter.Remove(suivant);
+            }
+
         }
 
-        private Lieu MagasinProche()
+        private Lieu MagasinProcheNonVisite()
         {
-            int min = FloydWarshall.Distance(dernierVisite, this.Tournee.ListeLieux[0]);
-            Lieu retour = this.Tournee.ListeLieux[0];
-            foreach (Lieu l in this.Tournee.ListeLieux)
+            int min = FloydWarshall.Distance(dernierVisite, aVisiter[0]);
+            Lieu retour = aVisiter[0];
+            foreach (Lieu l in aVisiter)
             {
                 if (FloydWarshall.Distance(dernierVisite, l) <= min)
                 {
