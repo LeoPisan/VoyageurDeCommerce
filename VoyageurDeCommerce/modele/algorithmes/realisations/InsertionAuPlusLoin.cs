@@ -11,7 +11,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 {
     class InsertionAuPlusLoin : Algorithme
     {
-        public override string Nom => "Insertion au plus proche";
+        public override string Nom => "Insertion au plus loin";
 
         public override void Executer(List<Lieu> lieux, List<Route> routes)
         {
