@@ -4,6 +4,7 @@
     public enum TypeAlgorithme
     {
         ALGOEXEMPLE,
-        CROISSANT
+        CROISSANT,
+        PLUSPROCHE
     }
 }

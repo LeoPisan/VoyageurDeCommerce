@@ -95,15 +95,7 @@ namespace VoyageurDeCommerce.modele.distances
                     }
         }
 
-        /// <summary>
-        /// Renvoie la distance (si les calculs ont été lancés avant !) entre les deux lieux
-        /// </summary>
-        /// <param name="depart">Lieu de départ</param>
-        /// <param name="arrivee">Lieu d'arrivé</param>
-        public static int Distance(Lieu depart, Lieu arrivee)
-        {
-            return Instance.tableauDistances[depart][arrivee];
-        }
+        
 
         /// <summary>
         /// Renvoie la liste des routes à suivre pour aller de depart à arrivée
@@ -123,6 +115,31 @@ namespace VoyageurDeCommerce.modele.distances
             }
             chemin.Reverse();
             return chemin;
+        }
+
+
+        /// <summary>
+        /// Renvoie la distance (si les calculs ont été lancés avant !) entre les deux lieux
+        /// </summary>
+        /// <param name="depart">Lieu de départ</param>
+        /// <param name="arrivee">Lieu d'arrivé</param>
+        public static int Distance(Lieu depart, Lieu arrivee)
+        {
+            return Instance.tableauDistances[depart][arrivee];
+        }
+
+
+        // Renvoie la distance
+        public static int DistanceCouple(Lieu L, Lieu A, Lieu B)
+        {
+            return Distance(A, L) + Distance(L, B) + Distance(A, B);
+        }
+
+        public static int Distance(Lieu L, Tournee T)
+        {
+            int res = 0;
+
+            return res;
         }
     }
 }
