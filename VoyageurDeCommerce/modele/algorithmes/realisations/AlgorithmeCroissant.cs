@@ -27,6 +27,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             }
             this.Tournee.Add(Outils.UsineDepart(lieux));
             stopwatch.Stop();
+            this.NotifyPropertyChanged("Tournee");
             this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
     }
