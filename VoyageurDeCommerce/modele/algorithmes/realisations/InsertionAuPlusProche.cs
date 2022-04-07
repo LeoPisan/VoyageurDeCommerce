@@ -29,18 +29,17 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Transfere(tempLieux[0], tempLieux);
             Transfere(FloydWarshall.PlusLoin(Tournee.ListeLieux[0], tempLieux), tempLieux);
 
-            Console.WriteLine(Tournee.ToString());
-
-            
+            // Ajout de tout les lieux dans la tournee
             foreach (Lieu lieu in tempLieux)
             {
                 int positionLieu = FloydWarshall.IndexLieuPlusProcheTournee(lieu, Tournee);
                 this.Tournee.ListeLieux.Insert(positionLieu, lieu);
-                Console.WriteLine(Tournee.ToString());
                 stopwatch.Stop();
                 this.NotifyPropertyChanged("Tournee");
                 stopwatch.Start();
             }
+
+            // Arrêt de la stopwatch et affichage
             stopwatch.Stop();
             this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
