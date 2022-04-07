@@ -9,9 +9,9 @@ using System.Diagnostics;
 
 namespace VoyageurDeCommerce.modele.algorithmes.realisations
 {
-    class InsertionAuPlusProche : Algorithme
+    class Centauri : Algorithme
     {
-        public override string Nom => "Insertion au plus proche";
+        public override string Nom => "Centauri";
 
         public override void Executer(List<Lieu> lieux, List<Route> routes)
         {
@@ -29,11 +29,35 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Transfere(tempLieux[0], tempLieux);
             Transfere(FloydWarshall.PlusLoin(Tournee.ListeLieux[0], tempLieux), tempLieux);
 
-            // Ajout de tout les lieux dans la tournee
-            foreach (Lieu lieu in tempLieux)
-            {
-                int positionLieu = Outils.IndexLieuPlusProcheTournee(lieu, Tournee);
-                this.Tournee.ListeLieux.Insert(positionLieu, lieu);
+            // Initialisation des derniers lieux
+            Lieu dernier1 = Tournee.ListeLieux[0];
+            Lieu dernier2 = Tournee.ListeLieux[1];
+            Lieu min;
+
+            // Variables utiles
+            int sommeDistanceCourant;
+            int minDistance;
+
+            while (!(tempLieux.Count <= 0))
+            {                
+                min = tempLieux[0];
+                minDistance = FloydWarshall.Distance(dernier1, dernier2) + 1;
+                foreach (Lieu lieu in tempLieux)
+                {
+                    sommeDistanceCourant = FloydWarshall.Distance(lieu, dernier1) + FloydWarshall.Distance(lieu, dernier2);          
+                    if (sommeDistanceCourant < minDistance)
+                    {
+                        minDistance = sommeDistanceCourant;
+                        min = lieu;
+                    }                    
+                }
+
+                // Ajoute le point le plus proche des deux derniers points ajoutés en passant par là où il ajoutera le moins de distance en plus
+                int positionLieu = Outils.IndexLieuPlusProcheTournee(min, Tournee);
+                this.Tournee.ListeLieux.Insert(positionLieu, min);
+                dernier1 = dernier2;
+                dernier2 = min;
+                tempLieux.Remove(min);
 
                 // Capture
                 stopwatch.Stop();
@@ -46,7 +70,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
 
-        
+
         /// <summary>
         /// Transfere un lieu d'une liste de lieu à la tournee
         /// </summary>

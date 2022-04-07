@@ -171,8 +171,6 @@ namespace VoyageurDeCommerce.modele.distances
 
 
         
-
-
         /// <summary>
         /// Renvoie le lieu le plus loin au point A
         /// </summary>
