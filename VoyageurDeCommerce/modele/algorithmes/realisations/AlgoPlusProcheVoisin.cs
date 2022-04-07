@@ -38,6 +38,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             this.Tournee.Add(usineDepart);
             this.NotifyPropertyChanged("Tournee");
             stopwatch.Stop();
+            this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
 
         /// <summary>
