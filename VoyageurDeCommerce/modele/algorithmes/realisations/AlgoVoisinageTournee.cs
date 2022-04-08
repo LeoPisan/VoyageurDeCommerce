@@ -45,9 +45,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             List<Lieu> aTester = listeLieux;
             while (!fin)
             {
-                this.Tournee.ListeLieux = compareVoisine(aTester);
+                this.Tournee.ListeLieux = compareVoisine(aTester); //si on en trouve une on remplace la tournée par la nouvelle, plus performante
                 if (this.Tournee.ListeLieux == aTester)
-                    fin = true;
+                    fin = true; //si on n'en trouve pas on arrête et on renvoie la dernière trouvée
                 aTester = this.Tournee.ListeLieux;
             }
 
