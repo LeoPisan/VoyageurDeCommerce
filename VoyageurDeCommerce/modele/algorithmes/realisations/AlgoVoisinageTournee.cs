@@ -24,14 +24,13 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             bool fin = false;
             while (!fin)
             {
-                fin = true;
                 for (int i = 0; i < tempListe.Count - 1; i++) //on teste toutes les tournées voisines
                 {
-                    Lieu l = tempListe[i];
+                    fin = true;
                     List<Lieu> testListe = Outils.InverseElements(i, i + 1, tempListe);
                     if (this.Tournee.Distance > new Tournee(testListe).Distance) //si la tournée voisine est plus courte alors on la prend à la place de l'ancienne
                     {
-                        this.Tournee = new Tournee(testListe);
+                        this.Tournee.ListeLieux = testListe;
                         fin = false;
                     }
                 }
