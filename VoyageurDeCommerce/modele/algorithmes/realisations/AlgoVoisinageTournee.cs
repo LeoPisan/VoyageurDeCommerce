@@ -17,7 +17,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-
+            /*
             this.Tournee = new Tournee(listeLieux);
             FloydWarshall.calculerDistances(listeLieux, listeRoute);
             List<Lieu> tempListe = listeLieux; //liste temporaire destinée à devenir la tournée
@@ -35,6 +35,14 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                     }
                 }
             }
+            */
+
+            //on part d'une tournée de base
+            this.Tournee.ListeLieux = listeLieux;
+
+            //on regarde si une des voisines de la tournée est meilleure que celle-ci
+
+
             stopwatch.Stop();
 
             //petite modification pour l'affichage de la tournée
@@ -50,6 +58,40 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             stopwatch.Stop();
             this.NotifyPropertyChanged("Tournee");
             this.TempsExecution = stopwatch.ElapsedMilliseconds;
+        }
+
+        /// <summary>
+        /// compare une tournée avec ses voisines et renvoie la plus courte
+        /// </summary>
+        /// <param name="aTester">tournée à tester</param>
+        /// <returns>tournée la plus courte parmi les voisines</returns>
+        private List<Lieu> compareVoisine(List<Lieu> aTester)
+        {
+            List<Lieu> temp = aTester;
+            List<List<Lieu>> voisines = genereVoisines(aTester);
+            foreach(List<Lieu> v in voisines)
+            {
+                if (new Tournee(temp).Distance > new Tournee(v).Distance)
+                {
+                    temp = v;
+                }
+            }
+            return temp;
+        }
+
+        /// <summary>
+        /// génère une liste de chemins voisins à celui entré en paramètre
+        /// </summary>
+        /// <param name="aTester">liste de lieux à tester</param>
+        /// <returns>liste de chemins voisins</returns>
+        private List<List<Lieu>> genereVoisines(List<Lieu> aTester)
+        {
+            List<List<Lieu>> temp = new List<List<Lieu>>();
+            for (int i = 0; i < aTester.Count - 1; i++)
+            {
+                temp.Add(Outils.InverseElements(i, i + 1, aTester));
+            }
+            return temp;
         }
     }
 }
