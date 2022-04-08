@@ -38,10 +38,18 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             */
 
             //on part d'une tournée de base
-            this.Tournee.ListeLieux = listeLieux;
 
             //on regarde si une des voisines de la tournée est meilleure que celle-ci
-
+            FloydWarshall.calculerDistances(listeLieux, listeRoute);
+            bool fin = false;
+            List<Lieu> aTester = listeLieux;
+            while (!fin)
+            {
+                this.Tournee.ListeLieux = compareVoisine(aTester);
+                if (this.Tournee.ListeLieux == aTester)
+                    fin = true;
+                aTester = this.Tournee.ListeLieux;
+            }
 
             stopwatch.Stop();
 
