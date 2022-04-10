@@ -77,7 +77,6 @@
     <Compile Include="modele\algorithmes\realisations\AlgoPlusProcheVoisin.cs" />
     <Compile Include="modele\algorithmes\realisations\AlgorithmeCroissant.cs" />
     <Compile Include="modele\algorithmes\realisations\AlgoVoisinageTournee.cs" />
-    <Compile Include="modele\algorithmes\realisations\Centauri.cs" />
     <Compile Include="modele\algorithmes\realisations\InsertionAuPlusLoin.cs" />
     <Compile Include="modele\algorithmes\realisations\InsertionAuPlusProche.cs" />
     <Compile Include="modele\distances\FloydWarshall.cs" />
