@@ -17,28 +17,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            /*
-            this.Tournee = new Tournee(listeLieux);
-            FloydWarshall.calculerDistances(listeLieux, listeRoute);
-            List<Lieu> tempListe = listeLieux; //liste temporaire destinée à devenir la tournée
-            bool fin = false;
-            while (!fin)
-            {
-                for (int i = 0; i < tempListe.Count - 1; i++) //on teste toutes les tournées voisines
-                {
-                    fin = true;
-                    List<Lieu> testListe = Outils.InverseElements(i, i + 1, tempListe);
-                    if (this.Tournee.Distance > new Tournee(testListe).Distance) //si la tournée voisine est plus courte alors on la prend à la place de l'ancienne
-                    {
-                        this.Tournee.ListeLieux = testListe;
-                        fin = false;
-                    }
-                }
-            }
-            */
 
             //on part d'une tournée de base
-
             //on regarde si une des voisines de la tournée est meilleure que celle-ci
             FloydWarshall.calculerDistances(listeLieux, listeRoute);
             bool fin = false;
