@@ -18,13 +18,18 @@ namespace VoyageurDeCommerce.modele.distances
                 return instance;
             }
         }
+
+        
+
         /// <summary>Tableau à double entrée qui permettra de stocker les distances</summary>
         private Dictionary<Lieu, Dictionary<Lieu, int>> tableauDistances;
         /// <summary>Tableau à double entrée qui permettra de stocker les prédécesseurs</summary>
         private Dictionary<Lieu, Dictionary<Lieu, Lieu>> tableauPredecesseurs;
         /// <summary>Tableau des routes</summary>
         private Dictionary<Lieu, Dictionary<Lieu, Route>> tableauRoutes;
+
         private int infini;
+
 
         /// <summary>Constructeur privé</summary>
         private FloydWarshall()

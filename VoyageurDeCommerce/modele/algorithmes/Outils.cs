@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using VoyageurDeCommerce.modele.lieux;
 using VoyageurDeCommerce.modele.distances;
 
+
 namespace VoyageurDeCommerce.modele.algorithmes
 {
     class Outils
