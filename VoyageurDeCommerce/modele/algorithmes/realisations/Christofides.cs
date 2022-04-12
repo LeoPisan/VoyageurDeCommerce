@@ -31,7 +31,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Dictionary<Lieu, Lieu> predDesLieux;            
             foreach (Lieu lieu in listeLieuxTemp)
             {
-                coutDesLieux.Add(lieu, FloydWarshall.Infini);
+                //coutDesLieux.Add(lieu, FloydWarshall.Infini);
             }
 
 
