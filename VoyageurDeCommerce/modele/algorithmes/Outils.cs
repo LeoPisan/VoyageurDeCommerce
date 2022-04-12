@@ -122,5 +122,29 @@ namespace VoyageurDeCommerce.modele.algorithmes
         {
             tourne.Add(tourne.ListeLieux[0]);
         }
+
+
+        /// <summary>
+        /// Renvoie la liste des voisins d'un point
+        /// </summary>
+        /// <param name="L">Lieu dont on veut les voisins</param>
+        /// <param name="listeRoutes">Routes du graphe</param>
+        public static List<Lieu> Voisins(Lieu L, List<Route> listeRoutes)
+        {
+            List<Lieu> res = new List<Lieu>();
+            foreach (Route route in listeRoutes)
+            {
+                if (route.Depart == L)
+                {
+                    res.Add(route.Arrivee);
+                }
+                if (route.Arrivee == L)
+                {
+                    res.Add(route.Depart);
+                }
+            }
+            return res;
+        }
+
     }
 }

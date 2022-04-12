@@ -40,6 +40,7 @@ namespace VoyageurDeCommerce.modele.distances
             this.tableauRoutes = new Dictionary<Lieu, Dictionary<Lieu, Route>>();
         }
 
+        
 
 
         private void Initialiser(List<Lieu> listeDesLieux, List<Route> listeDesRoutes)

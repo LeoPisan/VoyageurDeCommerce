@@ -25,16 +25,44 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             // Affecte les lieux et routes dans des listes temporaires
             List<Lieu> listeLieuxTemp = listeLieux;
             List<Route> listeRouteTemp = listeRoute;
+            List<Lieu> lieuxArbreCouvrant = new List<Lieu>();
+            List<Route> routesArbreCouvrant = new List<Route>();
 
-            //
-            Dictionary<Lieu, int> coutDesLieux = new Dictionary<Lieu, int>();
-            Dictionary<Lieu, Lieu> predDesLieux = new Dictionary<Lieu, Lieu>();        
-            foreach (Lieu lieu in listeLieuxTemp)
+            Lieu lieuPrincipal;
+            List<Lieu> voisins;
+
+            
+            while (listeLieuxTemp.Count > 0)
             {
-                //coutDesLieux.Add(lieu, FloydWarshall.Infini);
+                lieuPrincipal = listeLieuxTemp[0];
+                listeLieuxTemp.Remove(lieuPrincipal);
+                voisins = Outils.Voisins(lieuPrincipal, listeRouteTemp);
+                foreach (Lieu lieu in voisins)
+                {
+                    
+                }
             }
 
 
+
+
+
+
+
+
+
+            //
+            //Dictionary<Lieu, int> coutDesLieux = new Dictionary<Lieu, int>();
+            Dictionary<Lieu, Lieu> predDesLieux = new Dictionary<Lieu, Lieu>();        
+            foreach (Lieu lieu in listeLieuxTemp)
+            {
+                predDesLieux.Add(lieu, null);
+            }
+
+
+
+
+        
 
         }
     }
