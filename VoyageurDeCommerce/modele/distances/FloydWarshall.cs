@@ -31,6 +31,7 @@ namespace VoyageurDeCommerce.modele.distances
         private int infini;
 
 
+
         /// <summary>Constructeur privé</summary>
         private FloydWarshall()
         {
@@ -38,6 +39,7 @@ namespace VoyageurDeCommerce.modele.distances
             this.tableauPredecesseurs = new Dictionary<Lieu, Dictionary<Lieu, Lieu>>();
             this.tableauRoutes = new Dictionary<Lieu, Dictionary<Lieu, Route>>();
         }
+
 
 
         private void Initialiser(List<Lieu> listeDesLieux, List<Route> listeDesRoutes)
