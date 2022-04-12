@@ -36,7 +36,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <returns></returns>
         public static List<Lieu> InverseElements(int a, int b, List<Lieu> listeEntree)
         {
-            List<Lieu> liste = listeEntree;
+            List<Lieu> liste = new List<Lieu>(listeEntree);
             Lieu temp = liste[a];
             liste[a] = liste[b];
             liste[b] = temp;

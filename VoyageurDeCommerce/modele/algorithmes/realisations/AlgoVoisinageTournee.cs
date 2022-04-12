@@ -29,12 +29,13 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 this.Tournee.ListeLieux = compareVoisine(aTester); //si on en trouve une on remplace la tournée par la nouvelle, plus performante
                 if (this.Tournee.ListeLieux == aTester)
                     fin = true; //si on n'en trouve pas on arrête et on renvoie la dernière trouvée
-                this.NotifyPropertyChanged("Tournee");
+                //this.NotifyPropertyChanged("Tournee");
                 aTester = this.Tournee.ListeLieux;
             }
 
             stopwatch.Stop();
 
+            
             
             //petite modification pour l'affichage de la tournée
             Tournee retour = this.Tournee;
@@ -83,7 +84,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             {
                 temp.Add(Outils.InverseElements(i, i + 1, aTester));
             }
-            //temp.Add(Outils.InverseElements(0, aTester.Count - 1, aTester));
+            temp.Add(Outils.InverseElements(0, aTester.Count - 1, aTester));
+
             return temp;
         }
     }

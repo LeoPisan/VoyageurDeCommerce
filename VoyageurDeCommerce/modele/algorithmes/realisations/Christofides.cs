@@ -25,7 +25,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             // Affecte les lieux et routes dans des listes temporaires
             List<Lieu> listeLieuxTemp = listeLieux;
             List<Route> listeRouteTemp = listeRoute;
-
+            
             //
             Dictionary<Lieu, int> coutDesLieux;
             Dictionary<Lieu, Lieu> predDesLieux;            
