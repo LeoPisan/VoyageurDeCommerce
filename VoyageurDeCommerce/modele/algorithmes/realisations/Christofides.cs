@@ -31,7 +31,12 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Lieu lieuPrincipal;
             List<Lieu> voisins;
 
-            
+            Dictionary<Lieu, int> cout = new Dictionary<Lieu, int>();
+            foreach (Lieu lieu in listeLieuxTemp)
+            {
+                //cout.Add(lieu, FloydWarshall.Infini);
+            }
+
             while (listeLieuxTemp.Count > 0)
             {
                 lieuPrincipal = listeLieuxTemp[0];
@@ -43,26 +48,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 }
             }
 
-
-
-
-
-
-
-
-
-            //
-            //Dictionary<Lieu, int> coutDesLieux = new Dictionary<Lieu, int>();
-            Dictionary<Lieu, Lieu> predDesLieux = new Dictionary<Lieu, Lieu>();        
-            foreach (Lieu lieu in listeLieuxTemp)
-            {
-                predDesLieux.Add(lieu, null);
-            }
-
-
-
-
-        
+    
 
         }
     }
