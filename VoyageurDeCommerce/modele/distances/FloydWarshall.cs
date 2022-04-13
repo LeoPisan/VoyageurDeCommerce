@@ -48,10 +48,10 @@ namespace VoyageurDeCommerce.modele.distances
         private void Initialiser(List<Lieu> listeDesLieux, List<Route> listeDesRoutes)
         {
             //On calcul l'infini
-            this.Infini = 1;
+            this.infini = 1;
             foreach (Route route in listeDesRoutes)
             {
-                Infini += route.Distance;
+                infini += route.Distance;
             }
 
             //On met toutes les distances à infini et les prédécesseur à null
@@ -62,7 +62,7 @@ namespace VoyageurDeCommerce.modele.distances
                 tableauRoutes[lieu1] = new Dictionary<Lieu, Route>();
                 foreach (Lieu lieu2 in listeDesLieux)
                 {
-                    tableauDistances[lieu1][lieu2] = Infini;
+                    tableauDistances[lieu1][lieu2] = infini;
                     tableauPredecesseurs[lieu1][lieu2] = null;
                 }
             }
