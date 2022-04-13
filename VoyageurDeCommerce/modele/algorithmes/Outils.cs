@@ -146,5 +146,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
             return res;
         }
 
+
+
     }
 }

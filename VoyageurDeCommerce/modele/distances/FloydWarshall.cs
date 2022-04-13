@@ -30,7 +30,9 @@ namespace VoyageurDeCommerce.modele.distances
         /// <summary>Tableau des routes</summary>
         private Dictionary<Lieu, Dictionary<Lieu, Route>> tableauRoutes;
 
-        private int infini;
+        private static int infini;
+
+        public static int Infini => infini;
 
 
 
@@ -48,7 +50,7 @@ namespace VoyageurDeCommerce.modele.distances
         private void Initialiser(List<Lieu> listeDesLieux, List<Route> listeDesRoutes)
         {
             //On calcul l'infini
-            this.infini = 1;
+            infini = 1;
             foreach (Route route in listeDesRoutes)
             {
                 infini += route.Distance;
@@ -198,6 +200,21 @@ namespace VoyageurDeCommerce.modele.distances
             }
             return max;
         }
+
+
+        public static int distanceRoute(Lieu depart, Lieu arrivee, List<Lieu> lieux, List<Route> routes)
+        {
+            int res = infini;
+            foreach (Route route in routes)
+            {
+                if ((route.Depart == depart && route.Arrivee == arrivee) || (route.Depart == arrivee && route.Arrivee == depart))
+                {
+                    res = route.Distance;
+                }
+            }
+            return res;
+        }
+
 
 
     }
