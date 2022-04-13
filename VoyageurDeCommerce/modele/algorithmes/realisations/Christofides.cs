@@ -44,9 +44,13 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 voisins = Outils.Voisins(lieuPrincipal, listeRouteTemp);
                 foreach (Lieu lieu in voisins)
                 {
-                    //if (couts[lieu] >= )                    
+                    if (couts[lieu] >= FloydWarshall.DistanceRoute(lieuPrincipal, lieu, listeRouteTemp))
+                    {
+
+                    }
                 }
             }
+            
 
     
 

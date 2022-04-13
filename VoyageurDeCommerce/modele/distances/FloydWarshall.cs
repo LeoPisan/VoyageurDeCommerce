@@ -202,7 +202,7 @@ namespace VoyageurDeCommerce.modele.distances
         }
 
 
-        public static int distanceRoute(Lieu depart, Lieu arrivee, List<Lieu> lieux, List<Route> routes)
+        public static int DistanceRoute(Lieu depart, Lieu arrivee, List<Route> routes)
         {
             int res = infini;
             foreach (Route route in routes)
