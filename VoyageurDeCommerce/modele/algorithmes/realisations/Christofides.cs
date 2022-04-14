@@ -24,36 +24,60 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
             // Affecte les lieux et routes dans des listes temporaires
             List<Lieu> listeLieuxTemp = listeLieux;
-            List<Route> listeRouteTemp = listeRoute;
-            List<Lieu> lieuxArbreCouvrant = new List<Lieu>();
-            List<Route> routesArbreCouvrant = new List<Route>();
+            List<Route> listeRouteTemp = listeRoute.OrderBy(Route => Route.Distance).ToList(); // Trie les routes par distances croissantes
+            
+            List<Route> routesArbreCouvrant = Kruskal(listeLieuxTemp, listeRouteTemp);
+        }
 
-            Lieu lieuPrincipal;
-            List<Lieu> voisins;
 
-            Dictionary<Lieu, int> couts = new Dictionary<Lieu, int>();
-            foreach (Lieu lieu in listeLieuxTemp)
+        /// <summary>
+        /// Algorithme de Kruskal qui renvoit les routes de l'arbre couvrant d'un graphe passé en paramètre via les lieux et routes
+        /// </summary>
+        /// <param name="lieux"></param>
+        /// <param name="routes"></param>
+        private List<Route> Kruskal(List<Lieu> lieux, List<Route> routes)
+        {
+            List<Route> res = new List<Route>();
+
+            // Initialise une composante connexe pour chaque lieux
+            Dictionary<Lieu, int> listeComposanteConnexe = new Dictionary<Lieu, int>();
+            int i = 1;
+            foreach (Lieu lieu in lieux)
             {
-                couts.Add(lieu, FloydWarshall.Infini);
+                listeComposanteConnexe.Add(lieu, i);
+                i++;
             }
 
-            while (listeLieuxTemp.Count > 0)
-            {
-                lieuPrincipal = listeLieuxTemp[0];
-                listeLieuxTemp.Remove(lieuPrincipal);
-                voisins = Outils.Voisins(lieuPrincipal, listeRouteTemp);
-                foreach (Lieu lieu in voisins)
-                {
-                    if (couts[lieu] >= FloydWarshall.DistanceRoute(lieuPrincipal, lieu, listeRouteTemp))
-                    {
+            // Initialisations de variables utiles
+            Lieu lieu1;
+            Lieu lieu2;
+            int changement;
 
+            // Algorithme de Kruskal
+            foreach (Route route in routes)
+            {
+                lieu1 = route.Depart;
+                lieu2 = route.Arrivee;
+                if (listeComposanteConnexe[lieu1] != listeComposanteConnexe[lieu2])
+                {
+                    // On ajoute à notre arbre couvrant la route travaillée
+                    res.Add(route);
+
+                    // On fusionne les composantes connexes
+                    changement = listeComposanteConnexe[lieu2];
+                    foreach (Lieu lieu in lieux)
+                    {
+                        if (listeComposanteConnexe[lieu] == changement)
+                        {
+                            listeComposanteConnexe[lieu] = listeComposanteConnexe[lieu1];
+                        }
                     }
                 }
             }
-            
-
-    
-
+            return res;
         }
+
+
+   
     }
 }
