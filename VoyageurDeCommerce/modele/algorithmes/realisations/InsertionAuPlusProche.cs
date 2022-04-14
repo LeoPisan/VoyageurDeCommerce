@@ -68,7 +68,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
                 // Ajoute le point le plus proche des deux derniers points ajoutés en passant par là où il ajoutera le moins de distance en plus
                 int positionLieu = Outils.IndexLieuPlusProcheTournee(min, Tournee);
-                this.Tournee.ListeLieux.Insert(positionLieu, min);
+                Tournee.ListeLieux.Insert(positionLieu, min);
                 dernier1 = dernier2;
                 dernier2 = min;
                 tempLieux.Remove(min);
@@ -79,8 +79,11 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 stopwatch.Start();
             }
 
+
             // Arrêt de la stopwatch et affichage
             stopwatch.Stop();
+            Tournee.ListeLieux.Insert(Tournee.ListeLieux.Count, Tournee.ListeLieux[0]);
+            this.NotifyPropertyChanged("Tournee");
             this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
 

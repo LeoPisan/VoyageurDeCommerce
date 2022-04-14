@@ -64,23 +64,17 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="T"></param>
         public static int IndexLieuPlusProcheTournee(Lieu L, Tournee T)
         {
-            int indexLieu = 1;
+            int indexLieu = T.ListeLieux.Count - 1;
             int temp;
-            int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
-            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            int min = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            for (int i = 0; i < T.ListeLieux.Count - 2; i++)
             {
-                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
                 if (temp < min)
                 {
                     indexLieu = i;
                     min = temp;
                 }
-            }
-            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
-            if (temp < min)
-            {
-                indexLieu = 0;
-                min = temp;
             }
             return indexLieu;
         }
@@ -93,23 +87,17 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="T"></param>
         public static int IndexLieuPlusLoinTournee(Lieu L, Tournee T)
         {
-            int indexLieu = 1;
+            int indexLieu = T.ListeLieux.Count - 1;
             int temp;
-            int max = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
-            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            int max = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            for (int i = 0; i < T.ListeLieux.Count - 2; i++)
             {
-                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
                 if (temp > max)
                 {
                     indexLieu = i;
                     max = temp;
                 }
-            }
-            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
-            if (temp > max)
-            {
-                indexLieu = 0;
-                max = temp;
             }
             return indexLieu;
         }

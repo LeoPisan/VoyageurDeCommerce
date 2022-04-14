@@ -164,16 +164,16 @@ namespace VoyageurDeCommerce.modele.distances
         public static int DistanceTournee(Lieu L, Tournee T)
         {
             int temp;
-            int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
+            int min = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[1]);
             for (int i = 1; i < T.ListeLieux.Count - 1; i++)
             {
-                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
                 if (temp < min)
                 {
                     min = temp;
                 }
             }
-            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
             if (temp < min)
             {
                 min = temp;
@@ -222,8 +222,6 @@ namespace VoyageurDeCommerce.modele.distances
                     }
                 }
             }
-            Console.WriteLine(couple[0].ToString());
-            Console.WriteLine(couple[1].ToString());
             return couple;
         }
 
