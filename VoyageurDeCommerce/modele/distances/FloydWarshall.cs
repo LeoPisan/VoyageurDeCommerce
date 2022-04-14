@@ -151,7 +151,7 @@ namespace VoyageurDeCommerce.modele.distances
         /// <returns></returns>
         public static int DistanceCouple(Lieu L, Lieu A, Lieu B)
         {
-            return Distance(A, L) + Distance(L, B) + Distance(A, B);
+            return Distance(A, L) + Distance(L, B) - Distance(A, B);
         }
 
 
@@ -202,6 +202,39 @@ namespace VoyageurDeCommerce.modele.distances
         }
 
 
+        /// <summary>
+        /// Renvoie les 2 lieux les plus loin l'un de l'autre dans une liste de lieu donnée
+        /// </summary>
+        /// <param name="listeLieux">Liste de lieu donnée</param>
+        public static Lieu[] PlusLoin(List<Lieu> listeLieux)
+        {
+            Lieu[] couple = new Lieu[2];
+            couple[0] = listeLieux[0];
+            couple[1] = listeLieux[1];
+            foreach (Lieu lieu1 in listeLieux)
+            {
+                foreach (Lieu lieu2 in listeLieux)
+                {
+                    if (Distance(lieu1, lieu2) > Distance(couple[0], couple[1]))
+                    {
+                        couple[0] = lieu1;
+                        couple[1] = lieu2;
+                    }
+                }
+            }
+            Console.WriteLine(couple[0].ToString());
+            Console.WriteLine(couple[1].ToString());
+            return couple;
+        }
+
+
+        /// <summary>
+        /// Renvoie la distance entre deux lieux voisins
+        /// </summary>
+        /// <param name="depart">Lieu de départ</param>
+        /// <param name="arrivee">Lieu d'arrivée</param>
+        /// <param name="routes">Liste des routes</param>
+        /// <returns></returns>
         public static int DistanceRoute(Lieu depart, Lieu arrivee, List<Route> routes)
         {
             int res = infini;
