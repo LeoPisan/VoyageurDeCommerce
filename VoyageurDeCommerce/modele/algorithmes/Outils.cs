@@ -135,6 +135,48 @@ namespace VoyageurDeCommerce.modele.algorithmes
         }
 
 
+        /// <summary>
+        /// Renvoie le nombre de voisin d'un point
+        /// </summary>
+        /// <param name="L">Lieu dont on veut le nombre de voisins</param>
+        /// <param name="listeRoutes">Routes du graphe</param>
+        public static int NombreVoisins(Lieu L, List<Route> listeRoutes)
+        {
+            int res = 0;
+            foreach (Route route in listeRoutes)
+            {
+                if (route.Depart == L)
+                {
+                    res++;
+                }
+                if (route.Arrivee == L)
+                {
+                    res++;
+                }
+            }
+            return res;
+        }
+
+
+
+        public static void AfficheRoute(List<Route> routes)
+        {
+            foreach (Route route in routes)
+            {
+                Console.WriteLine("Route : " + route.Depart.ToString() + " à " + route.Arrivee.ToString());
+            }
+        }
+
+
+        public static void AfficheLieu(List<Lieu> lieux)
+        {
+            foreach (Lieu lieu in lieux)
+            {
+                Console.WriteLine("Lieu : " + lieu.ToString());
+            }            
+        }
+
+
 
     }
 }
