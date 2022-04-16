@@ -18,13 +18,23 @@ namespace VoyageurDeCommerce.modele.distances
                 return instance;
             }
         }
+
+        
+
+
+
         /// <summary>Tableau à double entrée qui permettra de stocker les distances</summary>
         private Dictionary<Lieu, Dictionary<Lieu, int>> tableauDistances;
         /// <summary>Tableau à double entrée qui permettra de stocker les prédécesseurs</summary>
         private Dictionary<Lieu, Dictionary<Lieu, Lieu>> tableauPredecesseurs;
         /// <summary>Tableau des routes</summary>
         private Dictionary<Lieu, Dictionary<Lieu, Route>> tableauRoutes;
-        private int infini;
+
+        private static int infini;
+
+        public static int Infini => infini;
+
+
 
         /// <summary>Constructeur privé</summary>
         private FloydWarshall()
@@ -34,11 +44,13 @@ namespace VoyageurDeCommerce.modele.distances
             this.tableauRoutes = new Dictionary<Lieu, Dictionary<Lieu, Route>>();
         }
 
+        
+
 
         private void Initialiser(List<Lieu> listeDesLieux, List<Route> listeDesRoutes)
         {
             //On calcul l'infini
-            this.infini = 1;
+            infini = 1;
             foreach (Route route in listeDesRoutes)
             {
                 infini += route.Distance;
@@ -139,7 +151,7 @@ namespace VoyageurDeCommerce.modele.distances
         /// <returns></returns>
         public static int DistanceCouple(Lieu L, Lieu A, Lieu B)
         {
-            return Distance(A, L) + Distance(L, B) + Distance(A, B);
+            return Distance(A, L) + Distance(L, B) - Distance(A, B);
         }
 
 
@@ -152,16 +164,16 @@ namespace VoyageurDeCommerce.modele.distances
         public static int DistanceTournee(Lieu L, Tournee T)
         {
             int temp;
-            int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
+            int min = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[1]);
             for (int i = 1; i < T.ListeLieux.Count - 1; i++)
             {
-                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
                 if (temp < min)
                 {
                     min = temp;
                 }
             }
-            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
             if (temp < min)
             {
                 min = temp;
@@ -188,6 +200,52 @@ namespace VoyageurDeCommerce.modele.distances
             }
             return max;
         }
+
+
+        /// <summary>
+        /// Renvoie les 2 lieux les plus loin l'un de l'autre dans une liste de lieu donnée
+        /// </summary>
+        /// <param name="listeLieux">Liste de lieu donnée</param>
+        public static Lieu[] PlusLoin(List<Lieu> listeLieux)
+        {
+            Lieu[] couple = new Lieu[2];
+            couple[0] = listeLieux[0];
+            couple[1] = listeLieux[1];
+            foreach (Lieu lieu1 in listeLieux)
+            {
+                foreach (Lieu lieu2 in listeLieux)
+                {
+                    if (Distance(lieu1, lieu2) > Distance(couple[0], couple[1]))
+                    {
+                        couple[0] = lieu1;
+                        couple[1] = lieu2;
+                    }
+                }
+            }
+            return couple;
+        }
+
+
+        /// <summary>
+        /// Renvoie la distance entre deux lieux voisins
+        /// </summary>
+        /// <param name="depart">Lieu de départ</param>
+        /// <param name="arrivee">Lieu d'arrivée</param>
+        /// <param name="routes">Liste des routes</param>
+        /// <returns></returns>
+        public static int DistanceRoute(Lieu depart, Lieu arrivee, List<Route> routes)
+        {
+            int res = infini;
+            foreach (Route route in routes)
+            {
+                if ((route.Depart == depart && route.Arrivee == arrivee) || (route.Depart == arrivee && route.Arrivee == depart))
+                {
+                    res = route.Distance;
+                }
+            }
+            return res;
+        }
+
 
 
     }

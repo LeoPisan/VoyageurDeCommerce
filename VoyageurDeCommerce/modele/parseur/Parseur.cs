@@ -32,22 +32,6 @@ namespace VoyageurDeCommerce.modele.parseur
         /// </summary>
         public void Parser()
         {
-            /*
-            listeLieux.Add("1", new Lieu(TypeLieu.USINE, "1", 0, 0));
-            listeLieux.Add("2", new Lieu(TypeLieu.MAGASIN, "2", 2, 0));
-            listeLieux.Add("3", new Lieu(TypeLieu.MAGASIN, "3", -2, 2));
-            listeLieux.Add("4", new Lieu(TypeLieu.MAGASIN, "4", 4, 2));
-            listeLieux.Add("5", new Lieu(TypeLieu.MAGASIN, "5", 1, 4));
-
-            listeRoutes.Add(new Route(listeLieux["1"], listeLieux["2"], 2));
-            listeRoutes.Add(new Route(listeLieux["1"], listeLieux["3"], 3));
-            listeRoutes.Add(new Route(listeLieux["1"], listeLieux["5"], 6));
-            listeRoutes.Add(new Route(listeLieux["2"], listeLieux["4"], 1));
-            listeRoutes.Add(new Route(listeLieux["2"], listeLieux["5"], 3));
-            listeRoutes.Add(new Route(listeLieux["3"], listeLieux["5"], 4));
-            listeRoutes.Add(new Route(listeLieux["4"], listeLieux["5"], 1));
-            */
-
             using (StreamReader stream = new StreamReader(this.adresseFichier))
             {
                 string ligne;

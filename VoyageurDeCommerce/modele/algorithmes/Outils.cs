@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using VoyageurDeCommerce.modele.lieux;
 using VoyageurDeCommerce.modele.distances;
 
+
 namespace VoyageurDeCommerce.modele.algorithmes
 {
     class Outils
@@ -35,7 +36,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <returns></returns>
         public static List<Lieu> InverseElements(int a, int b, List<Lieu> listeEntree)
         {
-            List<Lieu> liste = listeEntree;
+            List<Lieu> liste = new List<Lieu>(listeEntree);
             Lieu temp = liste[a];
             liste[a] = liste[b];
             liste[b] = temp;
@@ -63,23 +64,17 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="T"></param>
         public static int IndexLieuPlusProcheTournee(Lieu L, Tournee T)
         {
-            int indexLieu = 1;
+            int indexLieu = T.ListeLieux.Count - 1;
             int temp;
-            int min = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
-            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            int min = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            for (int i = 0; i < T.ListeLieux.Count - 2; i++)
             {
-                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
                 if (temp < min)
                 {
                     indexLieu = i;
                     min = temp;
                 }
-            }
-            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
-            if (temp < min)
-            {
-                indexLieu = 0;
-                min = temp;
             }
             return indexLieu;
         }
@@ -92,23 +87,17 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="T"></param>
         public static int IndexLieuPlusLoinTournee(Lieu L, Tournee T)
         {
-            int indexLieu = 1;
+            int indexLieu = T.ListeLieux.Count - 1;
             int temp;
-            int max = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[1]);
-            for (int i = 1; i < T.ListeLieux.Count - 1; i++)
+            int max = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            for (int i = 0; i < T.ListeLieux.Count - 2; i++)
             {
-                temp = FloydWarshall.Distance(T.ListeLieux[i], T.ListeLieux[i + 1]);
+                temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
                 if (temp > max)
                 {
                     indexLieu = i;
                     max = temp;
                 }
-            }
-            temp = FloydWarshall.Distance(T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
-            if (temp > max)
-            {
-                indexLieu = 0;
-                max = temp;
             }
             return indexLieu;
         }
@@ -121,5 +110,73 @@ namespace VoyageurDeCommerce.modele.algorithmes
         {
             tourne.Add(tourne.ListeLieux[0]);
         }
+
+
+        /// <summary>
+        /// Renvoie la liste des voisins d'un point
+        /// </summary>
+        /// <param name="L">Lieu dont on veut les voisins</param>
+        /// <param name="listeRoutes">Routes du graphe</param>
+        public static List<Lieu> Voisins(Lieu L, List<Route> listeRoutes)
+        {
+            List<Lieu> res = new List<Lieu>();
+            foreach (Route route in listeRoutes)
+            {
+                if (route.Depart == L)
+                {
+                    res.Add(route.Arrivee);
+                }
+                if (route.Arrivee == L)
+                {
+                    res.Add(route.Depart);
+                }
+            }
+            return res;
+        }
+
+
+        /// <summary>
+        /// Renvoie le nombre de voisin d'un point
+        /// </summary>
+        /// <param name="L">Lieu dont on veut le nombre de voisins</param>
+        /// <param name="listeRoutes">Routes du graphe</param>
+        public static int NombreVoisins(Lieu L, List<Route> listeRoutes)
+        {
+            int res = 0;
+            foreach (Route route in listeRoutes)
+            {
+                if (route.Depart == L)
+                {
+                    res++;
+                }
+                if (route.Arrivee == L)
+                {
+                    res++;
+                }
+            }
+            return res;
+        }
+
+
+
+        public static void AfficheRoute(List<Route> routes)
+        {
+            foreach (Route route in routes)
+            {
+                Console.WriteLine("Route : " + route.Depart.ToString() + " à " + route.Arrivee.ToString());
+            }
+        }
+
+
+        public static void AfficheLieu(List<Lieu> lieux)
+        {
+            foreach (Lieu lieu in lieux)
+            {
+                Console.WriteLine("Lieu : " + lieu.ToString());
+            }            
+        }
+
+
+
     }
 }
