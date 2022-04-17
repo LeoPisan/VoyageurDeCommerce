@@ -33,7 +33,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="a">indexe du premier élément</param>
         /// <param name="b">indexe du deuxième élément</param>
         /// <param name="listeEntree">liste où les deux éléments ont été inversés</param>
-        /// <returns></returns>
+        /// <returns>liste où les éléments ont été inversés</returns>
         public static List<Lieu> InverseElements(int a, int b, List<Lieu> listeEntree)
         {
             List<Lieu> liste = new List<Lieu>(listeEntree);
