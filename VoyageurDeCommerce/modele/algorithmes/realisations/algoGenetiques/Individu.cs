@@ -11,10 +11,17 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
     class Individu : Tournee
     {
         #region properties
+        /// <summary>
+        /// efficacité de l'individu, indique à quel point il est optimal
+        /// </summary>
         public double Fitness => 1 / (double)FloydWarshall.Distance(this.ListeLieux[0], this.ListeLieux[this.ListeLieux.Count - 1]);
         public int Size => this.ListeLieux.Count - 1;
         #endregion
 
+        /// <summary>
+        /// création d'un individu aléatoire respectant des lieux de passages obligatoires
+        /// </summary>
+        /// <param name="lieuxAgenerer">lieux de passages obligatoires de l'individu</param>
         public Individu(List<Lieu> lieuxAgenerer)
         {
             List<Lieu> aGenerer = new List<Lieu>(lieuxAgenerer);
@@ -24,6 +31,11 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             }
         }
 
+        /// <summary>
+        /// création d'un individu par crossover (reproduction)
+        /// </summary>
+        /// <param name="parent1">premier parent utilisé</param>
+        /// <param name="parent2">deuxième parent utilisé</param>
         public Individu(Individu parent1, Individu parent2)
         {
             this.ListeLieux = new List<Lieu>();

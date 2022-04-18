@@ -38,13 +38,11 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
-
+            this.lieuxAgenerer = new List<Lieu>(listeLieux);
             FloydWarshall.calculerDistances(listeLieux, listeRoute);
             this.Tournee = new Tournee(listeLieux);
             this.population = new Population(taillePop, this.Tournee);
 
-
-            this.InitPop(100); //création d'une population de départ de 100 individus (la taille changera par la suite en fonction des résultats des premiers tests
             for (int i = 0; i < this.nbGenerations; i++)
                 this.Evoluer();
 
@@ -54,16 +52,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         #endregion
 
         #region private methods
-        //génère un lieu aléatoire compris dans la tournée et n'ayant pas encore été inséré
-        private Lieu LieuAleatoire()
-        {
-            var random = new Random();
-            int indice = random.Next(this.lieuxAgenerer.Count - 1);
-            Lieu retour = this.lieuxAgenerer[indice];
-            this.lieuxAgenerer.RemoveAt(indice);
-            return (retour);
-        }
-
         //fait évoluer la population de rang n à la population de rang n + 1
         private void Evoluer()
         {
@@ -71,23 +59,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             for (int i = 0; i < population.Size;)
             {
                 Individu[] couple = this.Selection(this.population);
-                tempPop.Add(Crossover(couple[0], couple[1]));
+                tempPop.Add(new Individu(couple[0], couple[1]));
             }
             this.population = tempPop;
-        }
-
-        //genere un enfant à partir de deux parents
-        private Individu Crossover(Individu parent1, Individu parent2)
-        {
-            Individu retour = new Individu();
-            var random = new Random();
-            int indice = random.Next(this.Tournee.ListeLieux.Count - 1);
-            for (int i = 0; i < indice; i++)
-                retour.ListeLieux[i] = parent1.ListeLieux[i];
-            if (retour.ListeLieux.Count < this.Tournee.ListeLieux.Count - 1)
-                for (int i = indice; i < this.Tournee.ListeLieux.Count - 1; i++)
-                    retour.ListeLieux[i] = parent2.ListeLieux[i];
-            return retour;
         }
 
         //retourne les n meilleurs individus de la population
@@ -146,12 +120,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         }
         #endregion
 
-        #region protected methods
         /// <summary>
         /// effectue la sélection des individus passant d'une génération à une autre, varie selon les implémentations
         /// </summary>
         /// <returns>population suivante</returns>
         protected abstract Individu[] Selection(Population population);
-        #endregion
     }
 }

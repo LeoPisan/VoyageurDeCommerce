@@ -17,11 +17,18 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         #endregion
 
         #region methods
+        /// <summary>
+        /// création d'une population vierge
+        /// </summary>
         public Population()
         {
             listeIndividus = new List<Individu>();
         }
 
+        /// <summary>
+        /// construction d'une population reprenant une liste d'individus de départ
+        /// </summary>
+        /// <param name="listeIndividus">liste d'individus à reprendre dans la nouvelle population</param>
         public Population(List<Individu> listeIndividus)
         {
             ListeIndividus = listeIndividus;
@@ -59,6 +66,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             this.ListeIndividus.Remove(i);
         }
 
+        /// <summary>
+        /// fgait muter une population selon un taux de mutation défini à l'avance
+        /// </summary>
+        /// <param name="tauxMutation">taux de mutation à appliquer</param>
         public void Muter(double tauxMutation)
         {
             var random = new Random();
