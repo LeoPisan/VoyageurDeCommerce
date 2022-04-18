@@ -14,10 +14,11 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
     abstract class AlgoGenetique : Algorithme
     {
         #region attributes
-        private List<Individu> population; //population de solutions qui sera amenée à évoluer
+        private Population population; //population de solutions qui sera amenée à évoluer
         private List<Lieu> lieuxAgenerer;
         private int elitisme;
         private int nbGenerations; //nombre de générations à tester
+        private int taillePop;
         private double tauxMutation;
         #endregion
 
@@ -29,16 +30,19 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// <param name="elitisme">performance visée pour le résultat</param>
         public AlgoGenetique(int taillePop, int elitisme, int nbGenerations, double tauxMutation)
         {
+            this.taillePop = taillePop;
             this.tauxMutation = tauxMutation;
-            this.population = InitPop(taillePop);
             this.elitisme = elitisme;
             this.nbGenerations = nbGenerations;
         }
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
+
             FloydWarshall.calculerDistances(listeLieux, listeRoute);
             this.Tournee = new Tournee(listeLieux);
+            this.population = new Population(taillePop, this.Tournee);
+
 
             this.InitPop(100); //création d'une population de départ de 100 individus (la taille changera par la suite en fonction des résultats des premiers tests
             for (int i = 0; i < this.nbGenerations; i++)
@@ -50,23 +54,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         #endregion
 
         #region private methods
-        //créée la population de départ
-        private List<Individu> InitPop(int taillePop)
-        {
-            List<Individu> tempPop = new List<Individu>();
-            for (int i = 0; i < taillePop; i++) //on génère des individus aléatoirement
-            {
-                this.lieuxAgenerer = this.Tournee.ListeLieux; //permet à LieuAleatoire() de ne générer chez un individus que des sommets n'ayant pas encore été ajoutés
-                Individu tempIndividus = new Individu();
-                for (int j = 0; j < this.Tournee.ListeLieux.Count; i++) //on génère les éléments d'un individus aléatoirement
-                {
-                    tempIndividus.Add(LieuAleatoire());
-                }
-                tempPop.Add(tempIndividus);
-            }
-            return tempPop;
-        }
-
         //génère un lieu aléatoire compris dans la tournée et n'ayant pas encore été inséré
         private Lieu LieuAleatoire()
         {
@@ -80,8 +67,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         //fait évoluer la population de rang n à la population de rang n + 1
         private void Evoluer()
         {
-            List<Individu> tempPop = new List<Individu>();
-            for (int i = 0; i < population.Count - 1;)
+            Population tempPop = new Population();
+            for (int i = 0; i < population.Size;)
             {
                 Individu[] couple = this.Selection(this.population);
                 tempPop.Add(Crossover(couple[0], couple[1]));
@@ -104,15 +91,15 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         }
 
         //retourne les n meilleurs individus de la population
-        private List<Individu> MeilleursIndividus(int nbIndividus)
+        private Population MeilleursIndividus(int nbIndividus)
         {
-            List<Individu> retour = new List<Individu>(this.population);
-            while (retour.Count > nbIndividus)
+            Population retour = new Population(this.population);
+            while (retour.Size > nbIndividus)
             {
-                Individu aRetirer = retour[0];
+                Individu aRetirer = retour.ListeIndividus[0];
                 int max = FloydWarshall.Distance(aRetirer.ListeLieux[0], aRetirer.ListeLieux[aRetirer.ListeLieux.Count - 1]); //on initialise des valeurs de départ arbitraires, si on ne trouve pas plus grand ce seront elles qui seront retirées
 
-                foreach (Individu l in retour) //on cherche l'individu avec la plus grande distance dans la population
+                foreach (Individu l in retour.ListeIndividus) //on cherche l'individu avec la plus grande distance dans la population
                 {
                     int distance = FloydWarshall.Distance(l.ListeLieux[0], l.ListeLieux[l.ListeLieux.Count - 1]);
                     if (distance > max)
@@ -129,7 +116,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         //retourne le meilleur individu de la population
         private Individu MeilleurIndividu()
         {
-            return MeilleursIndividus(1)[0];
+            return MeilleursIndividus(1).ListeIndividus[0];
         }
 
         //applique des mutations à une population selon le taux indiqué pour l'algorithme
@@ -164,7 +151,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// effectue la sélection des individus passant d'une génération à une autre, varie selon les implémentations
         /// </summary>
         /// <returns>population suivante</returns>
-        protected abstract Individu[] Selection(List<Individu> population);
+        protected abstract Individu[] Selection(Population population);
         #endregion
     }
 }

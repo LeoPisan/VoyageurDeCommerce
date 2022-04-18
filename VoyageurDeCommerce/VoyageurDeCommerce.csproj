@@ -76,6 +76,7 @@
     <Compile Include="modele\algorithmes\Outils.cs" />
     <Compile Include="modele\algorithmes\realisations\algoGenetiques\AlgoGenetique.cs" />
     <Compile Include="modele\algorithmes\realisations\algoGenetiques\Individu.cs" />
+    <Compile Include="modele\algorithmes\realisations\algoGenetiques\Population.cs" />
     <Compile Include="modele\algorithmes\realisations\AlgoPlusProcheVoisin.cs" />
     <Compile Include="modele\algorithmes\realisations\AlgorithmeCroissant.cs" />
     <Compile Include="modele\algorithmes\realisations\AlgoVoisinageTournee.cs" />
