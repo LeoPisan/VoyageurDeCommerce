@@ -80,36 +80,42 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             List<Lieu> res = new List<Lieu>();  // Création de la liste de résultat
             List<Route> routesTemp = new List<Route>(routes);  // Affecte les valeurs des paramètres dans des variables temporaires
 
-            // Premier lieu
-            Lieu lieuTravail = lieux[0];
-            res.Add(lieuTravail);
-            voisins = Outils.Voisins(lieuTravail, routesTemp);
+            // Premier lieu 
+            Lieu lieuTravail = lieux[0];  // Affecte le premier lieu comme lieu de travail
+            res.Add(lieuTravail);  // Ajoute à res le lieu
+            voisins = Outils.Voisins(lieuTravail, routesTemp);  // Calcule les voisins du lieu actuel
 
 
             // Retire la route entre le lieu actuel et le suivant
             routesTemp.Remove(routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail))));
 
 
-
+            // Boucle de travail
             bool enCours = true;
             while (enCours)
             {
+                // Si le sommet actuel ne posssède pas de voisin
                 if (voisins.Count < 1)
                 {
                     enCours = false;
                 }
                 else
                 {
-                    lieuTravail = voisins[0];
-                    res.Add(lieuTravail);
-                    voisins = Outils.Voisins(lieuTravail, routesTemp);
+                    lieuTravail = voisins[0];  // Affecte le lieu suivant comme lieu actuel
+                    res.Add(lieuTravail);  // Ajoute à res le lieu
+                    voisins = Outils.Voisins(lieuTravail, routesTemp);  // Calcule les voisins du lieu actuel
+
+                    // Retire la route entre le lieu actuel et le suivant
                     routesTemp.Remove(routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail))));
 
                 }
             }
 
+            // Retire les doublons
             HashSet<Lieu> antiDuplicant = new HashSet<Lieu>(res);
             res = antiDuplicant.ToList();
+
+            // Retourne le résultat
             return res;
         }
 
