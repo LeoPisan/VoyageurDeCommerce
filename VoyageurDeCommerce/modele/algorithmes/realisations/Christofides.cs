@@ -32,19 +32,19 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
 
 
-            List<Route> couplageMinimal = CouplageMinimal(routeGrapheInduit, lieuxDegreImpair, routesArbreCouvrant);
+            List<Route> couplageMinimal = Couplage(routeGrapheInduit, lieuxDegreImpair, routesArbreCouvrant);
 
 
             //Outils.AfficheRoute(routesArbreCouvrant);
             //Outils.AfficheLieu(lieuxDegreImpair);
             //Outils.AfficheRoute(routeGrapheInduit);
-            Outils.AfficheRoute(couplageMinimal);
+            //Outils.AfficheRoute(couplageMinimal);
             
             
             
 
             List<Route> union = couplageMinimal.Union(routesArbreCouvrant).ToList();
-            //Outils.AfficheRoute(union);
+            Outils.AfficheRoute(union);
 
             
             foreach (Lieu lieu in listeLieux)
@@ -64,7 +64,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         /// </summary>
         /// <param name="routes">Routes du graphe</param>
         /// <param name="lieux">Lieux du graphe</param>
-        private List<Route> CouplageMinimal(List<Route> routes, List<Lieu> lieux, List<Route> routesArbre)
+        private List<Route> Couplage(List<Route> routes, List<Lieu> lieux, List<Route> routesArbre)
         {
             List<Route> res = new List<Route>();
             List<Lieu> lieuxTemp = new List<Lieu>(lieux);
