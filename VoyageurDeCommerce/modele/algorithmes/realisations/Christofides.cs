@@ -14,7 +14,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
     /// </summary>
     public class Christofides : Algorithme
     {
-
         public override string Nom => "Christofides";
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
@@ -47,12 +46,12 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             List<Route> union = couplageMinimal.Union(routesArbreCouvrant).ToList();
             //Outils.AfficheRoute(union);
 
-            /*
+            
             foreach (Lieu lieu in listeLieux)
             {
                 Console.WriteLine(lieu.ToString() + " : " + Outils.NombreVoisins(lieu, union).ToString() + " voisins");
             }
-            */
+            
 
 
 
