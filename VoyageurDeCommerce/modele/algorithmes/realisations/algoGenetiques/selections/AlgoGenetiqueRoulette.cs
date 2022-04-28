@@ -10,7 +10,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
     {
         public override string Nom => "Algorithme génétique à sélection par roulette";
 
-        public AlgoGenetiqueRoulette() : base(100,100,0) { }
+        public AlgoGenetiqueRoulette() : base(100,100,0) 
+        {
+        }
 
         /// <summary>
         /// retourne un couple d'individus sélectionnés selon la méthode de la sélection par roulette
