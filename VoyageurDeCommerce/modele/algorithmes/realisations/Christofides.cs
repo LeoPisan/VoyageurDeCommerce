@@ -7,6 +7,7 @@ using VoyageurDeCommerce.modele.lieux;
 using VoyageurDeCommerce.modele.distances;
 using System.Diagnostics;
 
+
 namespace VoyageurDeCommerce.modele.algorithmes.realisations
 {
     /// <summary>
@@ -14,50 +15,113 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
     /// </summary>
     public class Christofides : Algorithme
     {
-
+        private Stopwatch stopwatch = new Stopwatch();
         public override string Nom => "Christofides";
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
-            //Lancer FloydWarshall
+            // Lancement de la stopwatch
+            stopwatch.Start();
+
+            // Lancer FloydWarshall
             FloydWarshall.calculerDistances(listeLieux, listeRoute);
 
-            // Affecte les lieux et routes dans des listes temporaires
-            List<Route> listeRouteTemp = new List<Route>(listeRoute.OrderBy(Route => Route.Distance).ToList()); // Trie les routes par distances croissantes
+            // Affecte les lieux et routes dans des listes temporaires et les trie les routes par distances croissantes
+            List<Route> listeRouteTemp = new List<Route>(listeRoute.OrderBy(Route => Route.Distance).ToList());
             
+            // Arbre couvrant du graphe de base
             List<Route> routesArbreCouvrant = Kruskal(listeLieux, listeRouteTemp);
 
+            // Lieux de degré impair de l'arbre couvrant
             List<Lieu> lieuxDegreImpair = ListeLieuDegreImpair(listeLieux, routesArbreCouvrant);
 
+            // Supprime les routes ne menant plus à aucun lieu et les tris dans l'ordre coissant selon la distance
             List<Route> routeGrapheInduit = SupprimeRouteEnTrop(lieuxDegreImpair, listeRouteTemp).OrderBy(Route => Route.Distance).ToList();
 
-
-
-            List<Route> couplageMinimal = CouplageMinimal(routeGrapheInduit, lieuxDegreImpair, routesArbreCouvrant);
-
-
-            //Outils.AfficheRoute(routesArbreCouvrant);
-            //Outils.AfficheLieu(lieuxDegreImpair);
-            //Outils.AfficheRoute(routeGrapheInduit);
-            Outils.AfficheRoute(couplageMinimal);
-            
-            
-            
-
+            // Couplage de poids minimum
+            List<Route> couplageMinimal = Couplage(routeGrapheInduit, lieuxDegreImpair, routesArbreCouvrant);
+                        
+            // Union du couplage et de l'arbre couvrant
             List<Route> union = couplageMinimal.Union(routesArbreCouvrant).ToList();
-            //Outils.AfficheRoute(union);
 
-            /*
-            foreach (Lieu lieu in listeLieux)
+            // Fait un tour eulerien de graphe union
+            List<Lieu> final = TourEulerien(listeLieux, union);
+            
+            // Ajoute dans  la tournée chaque lieu du tour eulerien
+            foreach(Lieu lieu in final)
             {
-                Console.WriteLine(lieu.ToString() + " : " + Outils.NombreVoisins(lieu, union).ToString() + " voisins");
+                Tournee.ListeLieux.Add(lieu);
+
+                // Capture de la tournée
+                stopwatch.Stop();
+                this.NotifyPropertyChanged("Tournee");
+                stopwatch.Start();
             }
-            */
 
+            Outils.FinCycle(Tournee);
+            stopwatch.Stop();
 
-
+            // Capture de la tournée
+            this.NotifyPropertyChanged("Tournee");
 
         }
+
+
+
+        /// <summary>
+        /// Fait un tour eulerien d'un graphe
+        /// </summary>
+        /// <param name="lieux">Lieux du graphe</param>
+        /// <param name="routes">Routes du graphe</param>
+        private List<Lieu> TourEulerien(List<Lieu> lieux, List<Route> routes) 
+        {            
+            // Initialisation
+            List<Lieu> voisins;
+            List<Lieu> res = new List<Lieu>();  // Création de la liste de résultat
+            List<Route> routesTemp = new List<Route>(routes);  // Affecte les valeurs des paramètres dans des variables temporaires
+
+            // Premier lieu 
+            Lieu lieuTravail = lieux[0];  // Affecte le premier lieu comme lieu de travail
+            res.Add(lieuTravail);  // Ajoute à res le lieu
+            voisins = Outils.Voisins(lieuTravail, routesTemp);  // Calcule les voisins du lieu actuel
+
+
+            // Retire la route entre le lieu actuel et le suivant
+            routesTemp.Remove(routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail))));
+
+
+            // Boucle de travail
+            bool enCours = true;
+            while (enCours)
+            {
+                // Si le sommet actuel ne posssède pas de voisin
+                if (voisins.Count < 1)
+                {
+                    enCours = false;
+                }
+                else
+                {
+                    lieuTravail = voisins[0];  // Affecte le lieu suivant comme lieu actuel
+                    res.Add(lieuTravail);  // Ajoute à res le lieu
+                    voisins = Outils.Voisins(lieuTravail, routesTemp);  // Calcule les voisins du lieu actuel
+
+                    // Retire la route entre le lieu actuel et le suivant
+                    routesTemp.Remove(routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail))));
+
+                }
+            }
+
+            // Retire les doublons
+            HashSet<Lieu> antiDuplicant = new HashSet<Lieu>(res);
+            res = antiDuplicant.ToList();
+
+            // Retourne le résultat
+            return res;
+        }
+
+
+
+
 
 
         /// <summary>
@@ -65,7 +129,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         /// </summary>
         /// <param name="routes">Routes du graphe</param>
         /// <param name="lieux">Lieux du graphe</param>
-        private List<Route> CouplageMinimal(List<Route> routes, List<Lieu> lieux, List<Route> routesArbre)
+        private List<Route> Couplage(List<Route> routes, List<Lieu> lieux, List<Route> routesArbre)
         {
             List<Route> res = new List<Route>();
             List<Lieu> lieuxTemp = new List<Lieu>(lieux);

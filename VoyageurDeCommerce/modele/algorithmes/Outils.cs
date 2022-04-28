@@ -106,9 +106,9 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// ajoute le premier élément d'une tournée à la fin de celle-ci (on économise trois secondes de réflexions, c'est bokou)
         /// </summary>
         /// <param name="tourne">liste à réorganiser</param>
-        public static void FinCycle(Tournee tourne)
+        public static void FinCycle(Tournee tournee)
         {
-            tourne.Add(tourne.ListeLieux[0]);
+            tournee.Add(tournee.ListeLieux[0]);
         }
 
 
@@ -119,20 +119,71 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="listeRoutes">Routes du graphe</param>
         public static List<Lieu> Voisins(Lieu L, List<Route> listeRoutes)
         {
+            // Création de la liste de résultat
             List<Lieu> res = new List<Lieu>();
+
+            // Boucle testant toutes routes du paramètre
             foreach (Route route in listeRoutes)
             {
+                // Ajoute la route actuelle s'elle est voisine de L
                 if (route.Depart == L)
                 {
                     res.Add(route.Arrivee);
                 }
+                // Ajoute la route actuelle s'elle est voisine de L
                 if (route.Arrivee == L)
                 {
                     res.Add(route.Depart);
                 }
             }
+
+            // Retourne le résultat
             return res;
         }
+
+
+        /// <summary>
+        /// Renvoie True si le lieu L possède au moins 1 voisin
+        /// </summary>
+        /// <param name="L">Lieu dont lequel on veut s'avoir s'il possède au moins 1 voisin</param>
+        /// <param name="listeRoutes">Routes du graphe</param>
+        public static bool VoisinsBool(Lieu L, List<Route> listeRoutes)
+        {
+            // Création du booléen de rsultat
+            bool res = false;
+
+            // Varaible utiles 
+            int i = 0;  // Indentation
+            bool verif = true;  // Fin de boucle
+
+            // Boucle s'arrêtant après avoir trouvé un voisnin ou avoir testées toutes les routes possibles
+            while (verif)
+            {
+                // Si toutes les routes ont été testées
+                if (i > listeRoutes.Count - 1)
+                {
+                    verif = false;
+                }
+                // Si un voisin a été trouvé
+                else if (listeRoutes[i].Depart == L)
+                {
+                    verif = false;
+                    res = true;
+                }
+                // Si un voisin a été trouvé
+                else if (listeRoutes[i].Arrivee == L)
+                {
+                    verif = false;
+                    res = true;
+                }
+                // Indente i dans tous les cas pour passer au voisin suivant
+                i++;
+            }
+
+            // Retourne le résultat
+            return res;
+        }
+
 
 
         /// <summary>
@@ -170,10 +221,12 @@ namespace VoyageurDeCommerce.modele.algorithmes
 
         public static void AfficheLieu(List<Lieu> lieux)
         {
+            Console.Write("Lieu : ");
             foreach (Lieu lieu in lieux)
             {
-                Console.WriteLine("Lieu : " + lieu.ToString());
-            }            
+                Console.Write(lieu.ToString() + " - ");
+            }
+            Console.WriteLine();
         }
 
 
