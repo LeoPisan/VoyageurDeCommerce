@@ -25,7 +25,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         public Individu(List<Lieu> lieuxAgenerer)
         {
             List<Lieu> aGenerer = new List<Lieu>(lieuxAgenerer);
-            for (int i = 0; i < lieuxAgenerer.Count;)
+            for (int i = 0; i < lieuxAgenerer.Count - 1;)
             {
                 this.Add(LieuAleatoire(ref aGenerer));
             }
@@ -60,7 +60,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private Lieu LieuAleatoire(ref List<Lieu> lieuxAgenerer)
         {
             var random = new Random();
-            int indice = random.Next(lieuxAgenerer.Count - 1);
+            int indice = random.Next(lieuxAgenerer.Count - 1); //ERREUR -> lieuxAgenerer.Count == 0
             Lieu retour = lieuxAgenerer[indice];
             lieuxAgenerer.RemoveAt(indice);
             return (retour);
