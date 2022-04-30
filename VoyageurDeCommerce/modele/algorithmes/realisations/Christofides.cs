@@ -58,6 +58,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 stopwatch.Start();
             }
 
+            // Finis le cycle
             Outils.FinCycle(Tournee);
             stopwatch.Stop();
 

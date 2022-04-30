@@ -142,6 +142,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ressources\GrapheBipartieComplet.gph">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ressources\GrapheBipartieCompletValeurAleatoire.gph">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ressources\GrapheBipartie.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
