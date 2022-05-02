@@ -147,7 +147,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// </summary>
         /// <param name="L">Lieu dont lequel on veut s'avoir s'il possède au moins 1 voisin</param>
         /// <param name="listeRoutes">Routes du graphe</param>
-        public static bool VoisinsBool(Lieu L, List<Route> listeRoutes)
+        public static bool EstVoisin(Lieu L, List<Route> listeRoutes)
         {
             // Création du booléen de rsultat
             bool res = false;

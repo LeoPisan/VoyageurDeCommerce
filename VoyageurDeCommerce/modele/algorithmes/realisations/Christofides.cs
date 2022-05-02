@@ -20,9 +20,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
-            stopwatch.Reset();
-
             // Lancement de la stopwatch
+            stopwatch.Reset();
             stopwatch.Start();
 
             // Lancer FloydWarshall
@@ -171,7 +170,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             return res;
         }
 
-
+ 
 
         /// <summary>
         /// Renvoie une liste de Lieu ayant un nombre de voisins impair
