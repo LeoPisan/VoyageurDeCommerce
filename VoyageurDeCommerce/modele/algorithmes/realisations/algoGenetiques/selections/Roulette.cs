@@ -9,12 +9,13 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
     class Roulette
     {
         private Object[,] roue;
+
         public Roulette(Population pop)
         {
             roue = new Object[pop.Size, 2]; //assez peu solide, chercher un moyen de contraindre les types double et individu
             roue[0, 0] = pop.ListeIndividus[0];
             roue[0, 1] = pop.ListeIndividus[0].Fitness;
-            for (int i = 1; i <= pop.Size;)
+            for (int i = 1; i < pop.Size; i++)
             {
 
                 roue[i, 0] = pop.ListeIndividus[i];
@@ -22,12 +23,16 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
             }
         }
 
+        /// <summary>
+        /// retourne un individu sélectionné selon 
+        /// </summary>
+        /// <returns></returns>
         public Individu LanceRoue()
         {
             Individu retour = null;
             var random = new Random();
-            double fitness = (double)random.Next((int)(100 * (double)roue[roue.GetLongLength(0), 1]))/100;
-            for (int i = 0; i < roue.GetLongLength(0);)
+            double fitness = (double)random.Next((int)(100 * (double)roue[roue.GetLongLength(0) - 1, 1]))/100;
+            for (int i = 0; i < roue.GetLongLength(0); i++)
             {
                 if ((i > 0) && (fitness > (double)roue[i - 1, 1]) && (fitness <= (double)roue[i, 1]))
                 {

@@ -21,8 +21,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private double tauxMutation;
 
         #endregion
-        protected Population Population { get => population; }
 
+        protected Population Population { get => population; }
 
         #region public methods
         /// <summary>
