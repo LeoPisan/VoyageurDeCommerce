@@ -31,7 +31,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// <param name="listeIndividus">liste d'individus à reprendre dans la nouvelle population</param>
         public Population(List<Individu> listeIndividus)
         {
-            ListeIndividus = listeIndividus;
+            ListeIndividus = new List<Individu>(listeIndividus);
         }
 
         /// <summary>
@@ -50,15 +50,16 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// <param name="tourneeModele">tournée contenant les lieux à visiter</param>
         public Population(int taillePop, Tournee tourneeModele)
         {
+            this.listeIndividus = new List<Individu>();
             for (int i = 0; i < taillePop; i++) //on génère des individus aléatoirement
             {
                 this.Add(new Individu(tourneeModele.ListeLieux));
             }
         }
 
-        public void Add(Individu i)
+        public void Add(Individu ind)
         {
-            this.ListeIndividus.Add(i);
+            this.ListeIndividus.Add(ind);
         }
 
         public void Remove(Individu i)

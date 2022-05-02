@@ -15,6 +15,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// efficacité de l'individu, indique à quel point il est optimal
         /// </summary>
         public double Fitness => 1 / (double)FloydWarshall.Distance(this.ListeLieux[0], this.ListeLieux[this.ListeLieux.Count - 1]);
+        /// <summary>
+        /// utilisée pour parcourir l'individu
+        /// </summary>
         public int Size => this.ListeLieux.Count - 1;
         #endregion
 
@@ -25,8 +28,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         public Individu(List<Lieu> lieuxAgenerer)
         {
             List<Lieu> aGenerer = new List<Lieu>(lieuxAgenerer);
-            for (int i = 0; i < lieuxAgenerer.Count - 1;)
+            for (int i = 0; i < lieuxAgenerer.Count; i++)
             {
+                Lieu l = lieuxAgenerer[i];
                 this.Add(LieuAleatoire(ref aGenerer));
             }
         }
@@ -57,10 +61,11 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             this.ListeLieux = Outils.InverseElements(random.Next(this.ListeLieux.Count - 1), random.Next(this.ListeLieux.Count - 1), this.ListeLieux);
         }
 
+        //renvoie un lieu généré aléatoirement dans une liste de lieux à utiliser
         private Lieu LieuAleatoire(ref List<Lieu> lieuxAgenerer)
         {
             var random = new Random();
-            int indice = random.Next(lieuxAgenerer.Count - 1); //ERREUR -> lieuxAgenerer.Count == 0
+            int indice = random.Next(lieuxAgenerer.Count);
             Lieu retour = lieuxAgenerer[indice];
             lieuxAgenerer.RemoveAt(indice);
             return (retour);
