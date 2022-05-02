@@ -20,6 +20,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
+            stopwatch.Reset();
+
             // Lancement de la stopwatch
             stopwatch.Start();
 
@@ -64,7 +66,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
             // Capture de la tournée
             this.NotifyPropertyChanged("Tournee");
-
+            this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
 
 
