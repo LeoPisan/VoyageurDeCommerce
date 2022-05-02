@@ -10,7 +10,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
     {
         public override string Nom => "Algorithme génétique à sélection par roulette";
 
-        public AlgoGenetiqueRoulette() : base(100,100,0) 
+        public AlgoGenetiqueRoulette() : base(5,5,0) 
         {
         }
 
@@ -22,7 +22,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
         protected override Individu[] Selection(Population population)
         {
             Individu[] retour = new Individu[2];
-            for (int i = 0; i < 2;)
+            for (int i = 0; i < 2; i++)
             {
                 retour[i] = this.SelectionUnique(population);
             }

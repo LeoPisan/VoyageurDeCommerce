@@ -46,10 +46,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             var random = new Random();
             int indice = random.Next(parent1.Size);
             for (int i = 0; i < indice; i++)
-                this.ListeLieux[i] = parent1.ListeLieux[i];
+                this.ListeLieux.Add(parent1.ListeLieux[i]);
             if (this.ListeLieux.Count < parent1.Size + 1)
                 for (int i = indice; i < parent1.Size; i++)
-                    this.ListeLieux[i] = parent2.ListeLieux[i];
+                    this.ListeLieux.Add(parent2.ListeLieux[i]);
         }
 
         /// <summary>
