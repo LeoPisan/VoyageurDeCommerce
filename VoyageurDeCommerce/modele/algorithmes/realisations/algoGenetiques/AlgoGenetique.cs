@@ -19,7 +19,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private int nbGenerations; //nombre de générations à tester
         private int taillePop;
         private double tauxMutation;
+
         #endregion
+        protected Population Population { get => population; }
+
 
         #region public methods
         /// <summary>

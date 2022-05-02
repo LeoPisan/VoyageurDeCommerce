@@ -20,6 +20,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
+            stopwatch.Reset();
+
             // Lancement de la stopwatch
             stopwatch.Start();
 
@@ -58,12 +60,13 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 stopwatch.Start();
             }
 
+            // Finis le cycle
             Outils.FinCycle(Tournee);
             stopwatch.Stop();
 
             // Capture de la tournée
             this.NotifyPropertyChanged("Tournee");
-
+            this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
 
 
@@ -85,10 +88,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             res.Add(lieuTravail);  // Ajoute à res le lieu
             voisins = Outils.Voisins(lieuTravail, routesTemp);  // Calcule les voisins du lieu actuel
 
-
             // Retire la route entre le lieu actuel et le suivant
             routesTemp.Remove(routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail))));
-
 
             // Boucle de travail
             bool enCours = true;
@@ -107,7 +108,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
                     // Retire la route entre le lieu actuel et le suivant
                     routesTemp.Remove(routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail))));
-
                 }
             }
 
@@ -118,8 +118,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             // Retourne le résultat
             return res;
         }
-
-
 
 
 
