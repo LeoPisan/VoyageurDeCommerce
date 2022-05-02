@@ -154,6 +154,9 @@
     <None Include="ressources\GrapheBipartie.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ressources\Edouard.gph">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ressources\GrapheMétrique.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
