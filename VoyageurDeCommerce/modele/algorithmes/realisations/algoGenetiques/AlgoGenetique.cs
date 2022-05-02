@@ -16,7 +16,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         #region attributes
         private Population population; //population de solutions qui sera amenée à évoluer
         private List<Lieu> lieuxAgenerer;
-        private int elitisme;
         private int nbGenerations; //nombre de générations à tester
         private int taillePop;
         private double tauxMutation;
@@ -28,11 +27,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// </summary>
         /// <param name="taillePop">taille de la population initiale</param>
         /// <param name="elitisme">performance visée pour le résultat</param>
-        public AlgoGenetique(int taillePop, int elitisme, int nbGenerations, double tauxMutation)
+        public AlgoGenetique(int taillePop, int nbGenerations, double tauxMutation)
         {
             this.taillePop = taillePop;
             this.tauxMutation = tauxMutation;
-            this.elitisme = elitisme;
             this.nbGenerations = nbGenerations;
         }
 
