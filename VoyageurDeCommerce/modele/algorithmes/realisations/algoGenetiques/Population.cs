@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using VoyageurDeCommerce.modele.lieux;
 
@@ -53,7 +54,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             this.listeIndividus = new List<Individu>();
             for (int i = 0; i < taillePop; i++) //on génère des individus aléatoirement
             {
+                Thread.Sleep(200);
                 this.Add(new Individu(tourneeModele.ListeLieux));
+                Thread.Sleep(200);
             }
         }
 
