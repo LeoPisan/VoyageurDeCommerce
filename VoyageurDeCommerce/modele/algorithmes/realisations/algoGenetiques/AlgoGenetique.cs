@@ -62,6 +62,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
                 Individu[] couple = this.Selection(this.population);
                 tempPop.Add(new Individu(couple[0], couple[1]));
             }
+            tempPop.Muter(tauxMutation);
             this.population = tempPop;
         }
 

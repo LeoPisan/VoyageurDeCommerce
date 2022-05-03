@@ -14,7 +14,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// <summary>
         /// efficacité de l'individu, indique à quel point il est optimal
         /// </summary>
-        public double Fitness => 1 / (double)FloydWarshall.Distance(this.ListeLieux[0], this.ListeLieux[this.ListeLieux.Count - 1]);
+        public double Fitness => 1 / (double)FloydWarshall.Distance(this.ListeLieux[0], this.ListeLieux[this.Size]);
         /// <summary>
         /// utilisée pour parcourir l'individu
         /// </summary>
@@ -51,7 +51,13 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
 
             if (this.ListeLieux.Count < parent1.Size + 1)
                 for (int i = indice; i <= parent1.Size; i++)
-                    this.ListeLieux.Add(parent2.ListeLieux[i]);
+                {
+                    foreach(Lieu lieu in parent2.ListeLieux)
+                    {
+                        if (!this.ListeLieux.Contains(lieu))
+                            this.Add(lieu);
+                    }
+                }
         }
 
         /// <summary>

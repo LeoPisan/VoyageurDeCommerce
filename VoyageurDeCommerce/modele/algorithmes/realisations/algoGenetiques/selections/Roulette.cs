@@ -37,8 +37,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
         /// <returns>individu sélectionné</returns>
         public Individu LanceRoue()
         {
-            /*
             Individu retour = null;
+
+            /*
             double fitness = (double)AlgoGenetique.random.Next((int)(100 * (double)roue[roue.GetLongLength(0) - 1, 1]))/100;
             for (int i = 0; i < roue.GetLongLength(0); i++)
             {
@@ -56,13 +57,29 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
             return retour;
             */
 
-            double sommeFitness = 0;
-            foreach(KeyValuePair<Individu, double> ind in roue)
+            double total = 0;
+            foreach (KeyValuePair<Individu, double> ind in roue)
             {
-                sommeFitness += ind.Value;
+                total += ind.Value;
             }
 
+            double resultatCible = AlgoGenetique.random.NextDouble() * total; //on prend un nombre flottant aléatoire inférieur à la somme des fitness de tous les éléments de la roue
 
+
+
+            double cible = 0;
+            foreach (KeyValuePair<Individu, double> ind in roue)
+            {
+                if (cible + ind.Value >= resultatCible)
+                {
+                    retour = ind.Key;
+                    break;
+                }
+                else
+                    cible += ind.Value;
+            }
+
+            return retour;
         }
     }
 }
