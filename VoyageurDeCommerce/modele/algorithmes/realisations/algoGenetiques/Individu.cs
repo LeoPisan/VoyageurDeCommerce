@@ -45,10 +45,12 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             this.ListeLieux = new List<Lieu>();
             var random = new Random();
             int indice = random.Next(parent1.Size);
+
             for (int i = 0; i < indice; i++)
                 this.ListeLieux.Add(parent1.ListeLieux[i]);
+
             if (this.ListeLieux.Count < parent1.Size + 1)
-                for (int i = indice; i < parent1.Size; i++)
+                for (int i = indice; i <= parent1.Size; i++)
                     this.ListeLieux.Add(parent2.ListeLieux[i]);
         }
 
@@ -64,8 +66,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         //renvoie un lieu généré aléatoirement dans une liste de lieux à utiliser
         private Lieu LieuAleatoire(ref List<Lieu> lieuxAgenerer)
         {
-            var random = new Random();
-            int indice = random.Next(lieuxAgenerer.Count);
+            int indice = AlgoGenetique.random.Next(lieuxAgenerer.Count);
             Lieu retour = lieuxAgenerer[indice];
             lieuxAgenerer.RemoveAt(indice);
             return (retour);

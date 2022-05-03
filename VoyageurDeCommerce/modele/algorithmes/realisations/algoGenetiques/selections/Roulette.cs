@@ -8,10 +8,12 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
 {
     class Roulette
     {
-        private Object[,] roue;
+        //private Object[,] roue;
+        private Dictionary<Individu, double> roue;
 
         public Roulette(Population pop)
         {
+            /*
             roue = new Object[pop.Size, 2]; //assez peu solide, chercher un moyen de contraindre les types double et individu
             roue[0, 0] = pop.ListeIndividus[0];
             roue[0, 1] = pop.ListeIndividus[0].Fitness;
@@ -21,17 +23,23 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
                 roue[i, 0] = pop.ListeIndividus[i];
                 roue[i, 1] = pop.ListeIndividus[i].Fitness + (double)roue[i - 1, 1];
             }
+            */
+            roue = new Dictionary<Individu, double>();
+            foreach (Individu ind in pop.ListeIndividus)
+            {
+                roue.Add(ind, ind.Fitness);
+            }
         }
 
         /// <summary>
-        /// retourne un individu sélectionné selon 
+        /// retourne un individu sélectionné selon sa fitness
         /// </summary>
-        /// <returns></returns>
+        /// <returns>individu sélectionné</returns>
         public Individu LanceRoue()
         {
+            /*
             Individu retour = null;
-            var random = new Random();
-            double fitness = (double)random.Next((int)(100 * (double)roue[roue.GetLongLength(0) - 1, 1]))/100;
+            double fitness = (double)AlgoGenetique.random.Next((int)(100 * (double)roue[roue.GetLongLength(0) - 1, 1]))/100;
             for (int i = 0; i < roue.GetLongLength(0); i++)
             {
                 if ((i > 0) && (fitness > (double)roue[i - 1, 1]) && (fitness <= (double)roue[i, 1]))
@@ -46,6 +54,15 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
                 }
             }
             return retour;
+            */
+
+            double sommeFitness = 0;
+            foreach(KeyValuePair<Individu, double> ind in roue)
+            {
+                sommeFitness += ind.Value;
+            }
+
+
         }
     }
 }

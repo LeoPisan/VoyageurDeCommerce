@@ -13,7 +13,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private List<Individu> listeIndividus;
 
         #region properties
-        public List<Individu> ListeIndividus { get => listeIndividus; set => listeIndividus = value; }
+        public List<Individu> ListeIndividus { get => listeIndividus; }
         public int Size => ListeIndividus.Count - 1;
         #endregion
 
@@ -32,7 +32,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// <param name="listeIndividus">liste d'individus à reprendre dans la nouvelle population</param>
         public Population(List<Individu> listeIndividus)
         {
-            ListeIndividus = new List<Individu>(listeIndividus);
+            this.listeIndividus = new List<Individu>(listeIndividus);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// <param name="p">population à recopier</param>
         public Population(Population p)
         {
-            this.listeIndividus = p.listeIndividus;
+            this.listeIndividus = new List<Individu>(p.listeIndividus);
         }
         
         /// <summary>
@@ -54,9 +54,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             this.listeIndividus = new List<Individu>();
             for (int i = 0; i < taillePop; i++) //on génère des individus aléatoirement
             {
-                Thread.Sleep(200);
                 this.Add(new Individu(tourneeModele.ListeLieux));
-                Thread.Sleep(200);
             }
         }
 

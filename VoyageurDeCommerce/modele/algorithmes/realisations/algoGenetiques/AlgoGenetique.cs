@@ -19,7 +19,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private int nbGenerations; //nombre de générations à tester
         private int taillePop;
         private double tauxMutation;
-
+        public static Random random = new Random();
         #endregion
 
         protected Population Population { get => population; }
@@ -57,7 +57,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private void Evoluer()
         {
             Population tempPop = new Population();
-            for (int i = 0; i < population.Size; i++)
+            for (int i = 0; i <= population.Size; i++)
             {
                 Individu[] couple = this.Selection(this.population);
                 tempPop.Add(new Individu(couple[0], couple[1]));
@@ -69,7 +69,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private Population MeilleursIndividus(int nbIndividus)
         {
             Population retour = new Population(this.population);
-            while (retour.Size >= nbIndividus) //ERREUR : on n'entre pas dans la boucle
+            while (retour.Size >= nbIndividus)
             {
                 Individu aRetirer = retour.ListeIndividus[0];
                 int max = FloydWarshall.Distance(aRetirer.ListeLieux[0], aRetirer.ListeLieux[aRetirer.ListeLieux.Count - 1]); //on initialise des valeurs de départ arbitraires, si on ne trouve pas plus grand ce seront elles qui seront retirées
