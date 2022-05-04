@@ -13,7 +13,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
         /// <summary>
         /// Créée un algorithme génétique avec un système de sélection où la probabilité pour chaque individu d'être sélectionné est proportionnée à sa fitness
         /// </summary>
-        public AlgoGenetiqueRoulette() : base(1000,200,1) 
+        public AlgoGenetiqueRoulette() : base(500,2000,5) 
         {
         }
 
