@@ -163,6 +163,9 @@
     <None Include="ressources\Peigne.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ressources\Petersen.gph">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ressources\Tribu.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

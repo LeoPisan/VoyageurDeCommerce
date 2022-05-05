@@ -20,6 +20,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
+            /*
             // Lancement de la stopwatch
             stopwatch.Reset();
             stopwatch.Start();
@@ -33,17 +34,33 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             // Arbre couvrant du graphe de base
             List<Route> routesArbreCouvrant = Kruskal(listeLieux, listeRouteTemp);
 
+            Console.WriteLine();
+            Console.WriteLine("Arbre Couvrant :");
+            Outils.AfficheRoute(routesArbreCouvrant);
+
             // Lieux de degré impair de l'arbre couvrant
             List<Lieu> lieuxDegreImpair = ListeLieuDegreImpair(listeLieux, routesArbreCouvrant);
 
             // Supprime les routes ne menant plus à aucun lieu et les tris dans l'ordre coissant selon la distance
             List<Route> routeGrapheInduit = SupprimeRouteEnTrop(lieuxDegreImpair, listeRouteTemp).OrderBy(Route => Route.Distance).ToList();
 
+            Console.WriteLine();
+            Console.WriteLine("Induit :");
+            Outils.AfficheRoute(routeGrapheInduit);
+
             // Couplage de poids minimum
             List<Route> couplageMinimal = Couplage(routeGrapheInduit, lieuxDegreImpair, routesArbreCouvrant);
-                        
+
+            Console.WriteLine();
+            Console.WriteLine("Couplage :");
+            Outils.AfficheRoute(couplageMinimal);
+
             // Union du couplage et de l'arbre couvrant
             List<Route> union = couplageMinimal.Union(routesArbreCouvrant).ToList();
+
+            Console.WriteLine();
+            Console.WriteLine("Union :");
+            Outils.AfficheRoute(union);
 
             // Fait un tour eulerien de graphe union
             List<Lieu> final = TourEulerien(listeLieux, union);
@@ -65,7 +82,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
             // Capture de la tournée
             this.NotifyPropertyChanged("Tournee");
-            this.TempsExecution = stopwatch.ElapsedMilliseconds;
+            this.TempsExecution = stopwatch.ElapsedMilliseconds;*/
+
+            Heap(3);
         }
 
 
@@ -81,6 +100,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             List<Lieu> voisins;
             List<Lieu> res = new List<Lieu>();  // Création de la liste de résultat
             List<Route> routesTemp = new List<Route>(routes);  // Affecte les valeurs des paramètres dans des variables temporaires
+            Route aRetirer;
 
             // Premier lieu 
             Lieu lieuTravail = lieux[0];  // Affecte le premier lieu comme lieu de travail
@@ -106,7 +126,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                     voisins = Outils.Voisins(lieuTravail, routesTemp);  // Calcule les voisins du lieu actuel
 
                     // Retire la route entre le lieu actuel et le suivant
-                    routesTemp.Remove(routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail))));
+                    aRetirer = routesTemp.Find(Route => ((Route.Depart == lieuTravail) && (Route.Arrivee == voisins[0])) || ((Route.Depart == voisins[0]) && (Route.Arrivee == lieuTravail)));
+                    //Console.WriteLine(aRetirer.Depart.ToString() + " => " + aRetirer.Arrivee.ToString() + "  reste : ");
+                    routesTemp.Remove(aRetirer);
                 }
             }
 
@@ -128,6 +150,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         /// <param name="lieux">Lieux du graphe</param>
         private List<Route> Couplage(List<Route> routes, List<Lieu> lieux, List<Route> routesArbre)
         {
+            /*
             List<Route> res = new List<Route>();
             List<Lieu> lieuxTemp = new List<Lieu>(lieux);
             bool debug = true;
@@ -147,8 +170,102 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 }
             }
             return res;
+            */
+            List<Route> res = new List<Route>();
+
+
+            List<Lieu> lieuxTemp = new List<Lieu>(lieux);
+            List<Route> routesTemp = new List<Route>(routes);
+
+            foreach (Route route in routesTemp)
+            {
+
+            }
+
+            
+            return res;
         }
 
+
+
+
+        
+
+        // Pour la version itérative, on simule le processus récursif en mémorisant les indices de boucle dans un tableau compteur.
+        // compteur[k] représente, dans cette simulation, l'indice courant dans la boucle de Heap(k,A).
+
+        private List<int[]> Heap(int taille)
+        {
+            // 
+            int n = taille;
+            List<int[]> res = new List<int[]>();
+            int a;
+
+
+            // On initialise tab avec les les valeurs 1, 2, 3, ..., n
+            int[] tab = new int[n];            
+            for (int j = 0; j < tab.Length; j++)
+            {
+                tab[j] = j;
+            }
+
+            // On initialise compteur qu'avec des 0
+            int[] compteur = new int[n];
+            for (int j = 0; j < tab.Length; j++)
+            {
+                compteur[j] = 0;
+            }
+
+            Afficher(tab);
+            res.Add(tab);
+
+            // i indique le niveau de la boucle en cours d'incrémentation
+            int i = 0;
+
+            while(i < n)
+            {
+                if (compteur[i] < i)
+                {
+                    if (i%2 == 0)
+                    {
+                        a = tab[0];
+                        tab[0] = tab[i];
+                        tab[i] = a;
+                    }
+                    else
+                    {
+                        a = tab[i];
+                        tab[i] = tab[compteur[i]];
+                        tab[compteur[i]] = a;
+                    }
+                    Afficher(tab);
+                    res.Add(tab);
+
+                    compteur[i]++;
+                    i = 0;
+                }
+                else
+                {
+                    compteur[i] = 0;
+                    i++;
+                }
+            }
+
+            return res;
+        }
+
+
+        private void Afficher(int[] tab)
+        {
+            foreach(int i in tab)
+            {
+                Console.Write(i.ToString() + ", ");
+            }
+            Console.WriteLine();
+        }
+
+
+    
 
 
         /// <summary>
