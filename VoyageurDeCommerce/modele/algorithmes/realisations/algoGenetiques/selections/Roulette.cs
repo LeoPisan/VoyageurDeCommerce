@@ -13,17 +13,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
 
         public Roulette(Population pop)
         {
-            /*
-            roue = new Object[pop.Size, 2]; //assez peu solide, chercher un moyen de contraindre les types double et individu
-            roue[0, 0] = pop.ListeIndividus[0];
-            roue[0, 1] = pop.ListeIndividus[0].Fitness;
-            for (int i = 1; i < pop.Size; i++)
-            {
-
-                roue[i, 0] = pop.ListeIndividus[i];
-                roue[i, 1] = pop.ListeIndividus[i].Fitness + (double)roue[i - 1, 1];
-            }
-            */
             roue = new Dictionary<Individu, double>();
             foreach (Individu ind in pop.ListeIndividus)
             {
