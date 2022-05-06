@@ -20,7 +20,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
             Algorithme algo;
             switch (type)
             {
-                case TypeAlgorithme.ALGOEXEMPLE: algo = new AlgoExemple(); break;
+                //case TypeAlgorithme.ALGOEXEMPLE: algo = new AlgoExemple(); break;
                 case TypeAlgorithme.CROISSANT: algo = new AlgorithmeCroissant(); break;
                 case TypeAlgorithme.INSERTION_AU_PLUS_PROCHE: algo = new InsertionAuPlusProche(); break;
                 case TypeAlgorithme.PLUSPROCHEVOISIN: algo = new AlgoPlusProcheVoisin(); break;
@@ -28,6 +28,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
                 case TypeAlgorithme.VOISINAGE_TOURNEE: algo = new AlgoVoisinageTournee(); break; 
                 case TypeAlgorithme.CHRISTOFIDES: algo = new Christofides(); break;
                 case TypeAlgorithme.GENETIQUE_ROULETTE: algo = new AlgoGenetiqueRoulette(); break;
+                case TypeAlgorithme.CHRISTOFIDES_VERSION_BRUTE: algo = new Christofides_VersionBrute(); break;
 
                 default: throw new ExceptionAlgorithme("Vous n'avez pas modifié la fabrique des algorithmes !");
             }
