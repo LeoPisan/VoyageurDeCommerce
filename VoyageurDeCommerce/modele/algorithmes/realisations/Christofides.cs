@@ -20,7 +20,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
-            /*
+            
             // Lancement de la stopwatch
             stopwatch.Reset();
             stopwatch.Start();
@@ -34,32 +34,19 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             // Arbre couvrant du graphe de base
             List<Route> routesArbreCouvrant = Kruskal(listeLieux, listeRouteTemp);
 
-            Console.WriteLine();
-            Console.WriteLine("Arbre Couvrant :");
-            Outils.AfficheRoute(routesArbreCouvrant);
-
             // Lieux de degré impair de l'arbre couvrant
             List<Lieu> lieuxDegreImpair = ListeLieuDegreImpair(listeLieux, routesArbreCouvrant);
 
             // Supprime les routes ne menant plus à aucun lieu et les tris dans l'ordre coissant selon la distance
             List<Route> routeGrapheInduit = SupprimeRouteEnTrop(lieuxDegreImpair, listeRouteTemp).OrderBy(Route => Route.Distance).ToList();
 
-            Console.WriteLine();
-            Console.WriteLine("Induit :");
-            Outils.AfficheRoute(routeGrapheInduit);
-
             // Couplage de poids minimum
             List<Route> couplageMinimal = Couplage(routeGrapheInduit, lieuxDegreImpair, routesArbreCouvrant);
-
-            Console.WriteLine();
-            Console.WriteLine("Couplage :");
-            Outils.AfficheRoute(couplageMinimal);
 
             // Union du couplage et de l'arbre couvrant
             List<Route> union = couplageMinimal.Union(routesArbreCouvrant).ToList();
 
-            Console.WriteLine();
-            Console.WriteLine("Union :");
+
             Outils.AfficheRoute(union);
 
             // Fait un tour eulerien de graphe union
@@ -82,9 +69,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
 
             // Capture de la tournée
             this.NotifyPropertyChanged("Tournee");
-            this.TempsExecution = stopwatch.ElapsedMilliseconds;*/
-
-            Heap(3);
+            this.TempsExecution = stopwatch.ElapsedMilliseconds;
+           
+            
         }
 
 
@@ -172,17 +159,80 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             return res;
             */
             List<Route> res = new List<Route>();
+            List<Route> resTemp = new List<Route>();
 
-
-            List<Lieu> lieuxTemp = new List<Lieu>(lieux);
+            List<Lieu> lieuxTemp = new List<Lieu>();
             List<Route> routesTemp = new List<Route>(routes);
 
-            foreach (Route route in routesTemp)
-            {
 
+            foreach (Lieu lieu in lieux)
+            {
+                lieuxTemp.Add(lieu);
             }
 
-            
+            int quantite = 0;
+            int valeur = FloydWarshall.Infini;
+
+            int quantiteMax = quantite;
+            int valeurMin = valeur;
+
+            // On essaye d'ajouter chaque route dans tous les rdres possibles
+            foreach (int[] i in Heap(routesTemp.Count))
+            {
+                // On réinitialise les listes temporaires
+                lieuxTemp.Clear();
+                foreach (Lieu lieu in lieux)
+                {
+                    lieuxTemp.Add(lieu);
+                }
+
+                resTemp.Clear();
+                quantite = 0;
+                valeur = FloydWarshall.Infini;
+
+
+                // Pour prend les index du tableau i dans l'ordre
+                foreach (int j in i)
+                {
+                    // 
+                    if (lieuxTemp.Contains(routesTemp[j].Depart) && lieuxTemp.Contains(routesTemp[j].Arrivee))
+                    {
+                        lieuxTemp.Remove(routesTemp[j].Depart);
+                        lieuxTemp.Remove(routesTemp[j].Arrivee);
+                        resTemp.Add(routesTemp[j]);
+                        quantite++;
+                        valeur += routesTemp[j].Distance;
+                    }
+                }
+
+
+                // Si la quantié de couple est plus grand que le cas précédent
+                if (quantite > quantiteMax)
+                {
+                    quantiteMax = quantite;
+                    res.Clear();
+                    foreach (Route route in resTemp)
+                    {
+                        res.Add(route);
+                    }
+                    res = resTemp;
+                }
+                else if (quantite == quantiteMax)
+                {
+                    // Si la somme de tous les couples est plus petit que celle d'avant
+                    if (valeur < valeurMin)
+                    {
+                        valeurMin = valeur;
+                        res.Clear();
+                        foreach (Route route in resTemp)
+                        {
+                            res.Add(route);
+                        }
+                        res = resTemp;
+                    }
+                }
+            }
+                        
             return res;
         }
 
@@ -208,7 +258,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             {
                 tab[j] = j;
             }
-
+            
             // On initialise compteur qu'avec des 0
             int[] compteur = new int[n];
             for (int j = 0; j < tab.Length; j++)
@@ -216,8 +266,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 compteur[j] = 0;
             }
 
-            Afficher(tab);
-            res.Add(tab);
+            int[] tab2 = new int[n];
+            tab.CopyTo(tab2, 0);
+            res.Add(tab2);
 
             // i indique le niveau de la boucle en cours d'incrémentation
             int i = 0;
@@ -238,8 +289,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                         tab[i] = tab[compteur[i]];
                         tab[compteur[i]] = a;
                     }
-                    Afficher(tab);
-                    res.Add(tab);
+
+                    int[] tab3 = new int[n];
+                    tab.CopyTo(tab3, 0);
+                    res.Add(tab3);
 
                     compteur[i]++;
                     i = 0;
