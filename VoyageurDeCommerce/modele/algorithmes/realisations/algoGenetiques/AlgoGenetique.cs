@@ -44,11 +44,43 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             this.Tournee = new Tournee(listeLieux);
             this.population = new Population(taillePop, this.Tournee);
 
+            /*
             for (int i = 0; i < this.nbGenerations; i++)
                 this.Evoluer();
+            */
+
+            bool fin = false;
+            int generations = this.nbGenerations;
+
+            while (!fin)
+            {
+                Population tempPop = new Population(this.population);
+                this.Evoluer();
+                if (this.MeilleurIndividu().Fitness <= tempPop.MeilleurIndividu().Fitness)
+                {
+                    this.population = new Population(tempPop);
+                    generations--;
+                }
+                else
+                    generations = this.nbGenerations;
+
+                if (generations <= 0)
+                {
+                    fin = true;
+                }
+            }
 
             this.MiseAjourFinale();
             //en cours de création
+        }
+
+        /// <summary>
+        /// cherche le meilleur individu de la population
+        /// </summary>
+        /// <returns>meilleur individu</returns>
+        public Individu MeilleurIndividu()
+        {
+            return this.population.MeilleurIndividu();
         }
         #endregion
 
@@ -66,35 +98,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
             this.population = tempPop;
         }
 
-        //retourne les n meilleurs individus de la population
-        private Population MeilleursIndividus(int nbIndividus)
-        {
-            Population retour = new Population(this.population);
-            while (retour.Size >= nbIndividus)
-            {
-                Individu aRetirer = retour.ListeIndividus[0];
-                int max = FloydWarshall.Distance(aRetirer.ListeLieux[0], aRetirer.ListeLieux[aRetirer.ListeLieux.Count - 1]); //on initialise des valeurs de départ arbitraires, si on ne trouve pas plus grand ce seront elles qui seront retirées
 
-                foreach (Individu l in retour.ListeIndividus) //on cherche l'individu avec la plus grande distance dans la population
-                {
-                    int distance = FloydWarshall.Distance(l.ListeLieux[0], l.ListeLieux[l.ListeLieux.Count - 1]);
-                    if (distance > max)
-                    {
-                        max = distance;
-                        aRetirer = l;
-                    }
-                }
-                retour.Remove(aRetirer); //on retire cet individu et on répète jusqu'à avoir une liste de la taille demandée
-            }
-            return retour;
-        }
-
-        //retourne le meilleur individu de la population
-        private Individu MeilleurIndividu()
-        {
-            Population retour = MeilleursIndividus(2);
-            return retour.ListeIndividus[0];
-        }
 
         //applique des mutations à une population selon le taux indiqué pour l'algorithme
         private List<Individu> Mutation(List<Individu> pop)
