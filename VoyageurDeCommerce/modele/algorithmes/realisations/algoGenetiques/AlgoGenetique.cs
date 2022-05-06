@@ -19,9 +19,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         private int nbGenerations; //nombre de générations à tester
         private int taillePop;
         private double tauxMutation;
-        public static Random random = new Random();
+        private static Random random = new Random();
         #endregion
 
+        public static Random Random { get => random; }
         protected Population Population { get => population; }
 
         #region public methods

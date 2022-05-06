@@ -34,7 +34,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
                 total += ind.Value;
             }
 
-            double resultatCible = AlgoGenetique.random.NextDouble() * total; //on prend un nombre flottant aléatoire inférieur à la somme des fitness de tous les éléments de la roue
+            double resultatCible = AlgoGenetique.Random.NextDouble() * total; //on prend un nombre flottant aléatoire inférieur à la somme des fitness de tous les éléments de la roue
 
 
 
@@ -52,5 +52,21 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
 
             return retour;
         }
+        
+        /// <summary>
+        /// sélectionne un individu au hasard parmi la moitié la plus performante de la population
+        /// </summary>
+        /// <returns>individu sélectionné</returns>
+        public Individu LanceRoueRang()
+        {
+            List<Individu> populationOrdonnee = (List<Individu>)this.roue.OrderByDescending(s => s.Value);
+            List<Individu> tempParents = new List<Individu>();
+
+            for (int i = 0; i <= populationOrdonnee.Count() / 2; i++)
+                tempParents.Add(populationOrdonnee[i]);
+
+            return tempParents[AlgoGenetique.Random.Next(tempParents.Count)];
+        }
+
     }
 }
