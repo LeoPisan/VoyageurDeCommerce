@@ -39,24 +39,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
         {
             Individu retour = null;
 
-            /*
-            double fitness = (double)AlgoGenetique.random.Next((int)(100 * (double)roue[roue.GetLongLength(0) - 1, 1]))/100;
-            for (int i = 0; i < roue.GetLongLength(0); i++)
-            {
-                if ((i > 0) && (fitness > (double)roue[i - 1, 1]) && (fitness <= (double)roue[i, 1]))
-                {
-                    retour = (Individu)roue[i, 0];
-                    break;
-                }
-                else if ((i == 0) && ((double)roue[0, 1]) >= fitness)
-                {
-                    retour = (Individu)roue[0, 0];
-                    break;
-                }
-            }
-            return retour;
-            */
-
             double total = 0;
             foreach (KeyValuePair<Individu, double> ind in roue)
             {
