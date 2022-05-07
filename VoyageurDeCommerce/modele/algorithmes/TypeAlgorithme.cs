@@ -11,6 +11,7 @@
         VOISINAGE_TOURNEE,          // ELia
         CHRISTOFIDES,               // Evan
         GENETIQUE_ROULETTE,         // Elia
+        GENETIQUE_RANG,             // Elia
         CHRISTOFIDES_VERSION_BRUTE  // Evan
     }
 }

@@ -30,6 +30,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
                 case TypeAlgorithme.CHRISTOFIDES: algo = new Christofides(); break;
                 case TypeAlgorithme.GENETIQUE_ROULETTE: algo = new AlgoGenetiqueRoulette(); break;
                 case TypeAlgorithme.CHRISTOFIDES_VERSION_BRUTE: algo = new Christofides_VersionBrute(); break;
+                case TypeAlgorithme.GENETIQUE_RANG: algo = new AlgoGenetiqueRang(); break;
 
                 default: throw new ExceptionAlgorithme("Vous n'avez pas modifié la fabrique des algorithmes !");
             }
