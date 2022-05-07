@@ -4,13 +4,13 @@
     public enum TypeAlgorithme
     {
         ALGOEXEMPLE,
-        CROISSANT,
-        INSERTION_AU_PLUS_PROCHE,
-        PLUSPROCHEVOISIN,
-        INSERTION_AU_PLUS_LOIN,
-        VOISINAGE_TOURNEE,
-        CHRISTOFIDES,
-        GENETIQUE_ROULETTE,
-        GENETIQUE_RANG
+        CROISSANT,                  // Elia
+        INSERTION_AU_PLUS_PROCHE,   // Evan
+        PLUSPROCHEVOISIN,           // Elia
+        INSERTION_AU_PLUS_LOIN,     // Evan
+        VOISINAGE_TOURNEE,          // ELia
+        CHRISTOFIDES,               // Evan
+        GENETIQUE_ROULETTE,         // Elia
+        CHRISTOFIDES_VERSION_BRUTE  // Evan
     }
 }
