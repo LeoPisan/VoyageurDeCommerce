@@ -8,15 +8,20 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
 {
     class Roulette
     {
-        //private Object[,] roue;
+        #region attributes
         private Dictionary<Individu, double> roue;
+        private List<Individu> listeRoue;
+        #endregion
 
         public Roulette(Population pop)
         {
             roue = new Dictionary<Individu, double>();
+            listeRoue = new List<Individu>();
+
             foreach (Individu ind in pop.ListeIndividus)
             {
                 roue.Add(ind, ind.Fitness);
+                listeRoue.Add(ind);
             }
         }
 
@@ -59,13 +64,17 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
         /// <returns>individu sélectionné</returns>
         public Individu LanceRoueRang()
         {
-            List<Individu> populationOrdonnee = (List<Individu>)this.roue.OrderByDescending(s => s.Value);
-            List<Individu> tempParents = new List<Individu>();
+            var tempParents = listeRoue.OrderByDescending(s => s.Fitness);
+            List<Individu> listCandidats = new List<Individu>();
 
-            for (int i = 0; i <= populationOrdonnee.Count() / 2; i++)
-                tempParents.Add(populationOrdonnee[i]);
+            foreach (Individu i in tempParents)
+                listCandidats.Add(i);
 
-            return tempParents[AlgoGenetique.Random.Next(tempParents.Count)];
+            int fin = listCandidats.Count / 2;
+            for (int i = 0; i < fin; i++)
+                listCandidats.RemoveAt(listCandidats.Count - 1 - i);
+
+            return listCandidats[AlgoGenetique.Random.Next(listCandidats.Count)];
         }
 
     }

@@ -3,6 +3,7 @@ using VoyageurDeCommerce.exception.realisations;
 using VoyageurDeCommerce.modele.algorithmes.realisations;
 using VoyageurDeCommerce.modele.lieux;
 using VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.selections;
+using VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques;
 
 namespace VoyageurDeCommerce.modele.algorithmes
 {
@@ -28,6 +29,7 @@ namespace VoyageurDeCommerce.modele.algorithmes
                 case TypeAlgorithme.VOISINAGE_TOURNEE: algo = new AlgoVoisinageTournee(); break; 
                 case TypeAlgorithme.CHRISTOFIDES: algo = new Christofides(); break;
                 case TypeAlgorithme.GENETIQUE_ROULETTE: algo = new AlgoGenetiqueRoulette(); break;
+                case TypeAlgorithme.GENETIQUE_RANG: algo = new AlgoGenetiqueRang(); break;
 
                 default: throw new ExceptionAlgorithme("Vous n'avez pas modifié la fabrique des algorithmes !");
             }

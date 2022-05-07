@@ -11,7 +11,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
     {
         public override string Nom => "Algorithme génétique à sélection par rang";
 
-        public AlgoGenetiqueRang(): base(5, 5, 0) { } //valeurs de test à changer après la complétion de l'implémentation
+        public AlgoGenetiqueRang(): base(1000, 200, 0) { } //valeurs de test à changer après la complétion de l'implémentation
         
         protected override Individu[] Selection(Population population)
         {
