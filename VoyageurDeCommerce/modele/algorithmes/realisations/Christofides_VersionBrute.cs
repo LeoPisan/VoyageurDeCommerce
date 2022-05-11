@@ -13,10 +13,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
     /// <summary>
     /// Exemple de classe Algorithme, à ne pas garder
     /// </summary>
-    public class Christofides : Algorithme
+    public class Christofides_VersionBrute : Algorithme
     {
         private Stopwatch stopwatch = new Stopwatch();
-        public override string Nom => "Christofides";
+        public override string Nom => "Christofides Version Brute";
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
@@ -142,30 +142,155 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         /// <param name="routes">Routes du graphe</param>
         /// <param name="lieux">Lieux du graphe</param>
         private List<Route> Couplage(List<Route> routes, List<Lieu> lieux, List<Route> routesArbre)
-        {
+        {         
             List<Route> res = new List<Route>();
-            List<Lieu> lieuxTemp = new List<Lieu>(lieux);
-            bool debug = true;
-            int i = 0;
-            while (debug)
+            List<Route> resTemp = new List<Route>();
+
+            List<Lieu> lieuxTemp = new List<Lieu>();
+            List<Route> routesTemp = new List<Route>(routes);
+
+
+            foreach (Lieu lieu in lieux)
             {
-                if (lieuxTemp.Count < 2 || i >= routes.Count) { debug = false; }
+                lieuxTemp.Add(lieu);
+            }
+
+            int quantite = 0;
+            int valeur = FloydWarshall.Infini;
+
+            int quantiteMax = quantite;
+            int valeurMin = valeur;
+
+            // On essaye d'ajouter chaque route dans tous les rdres possibles
+            foreach (int[] i in Heap(routesTemp.Count))
+            {
+                // On réinitialise les listes temporaires
+                lieuxTemp.Clear();
+                foreach (Lieu lieu in lieux)
+                {
+                    lieuxTemp.Add(lieu);
+                }
+
+                resTemp.Clear();
+                quantite = 0;
+                valeur = FloydWarshall.Infini;
+
+
+                // Pour prend les index du tableau i dans l'ordre
+                foreach (int j in i)
+                {
+                    // 
+                    if (lieuxTemp.Contains(routesTemp[j].Depart) && lieuxTemp.Contains(routesTemp[j].Arrivee))
+                    {
+                        lieuxTemp.Remove(routesTemp[j].Depart);
+                        lieuxTemp.Remove(routesTemp[j].Arrivee);
+                        resTemp.Add(routesTemp[j]);
+                        quantite++;
+                        valeur += routesTemp[j].Distance;
+                    }
+                }
+
+
+                // Si la quantié de couple est plus grand que le cas précédent
+                if (quantite > quantiteMax)
+                {
+                    quantiteMax = quantite;
+                    res.Clear();
+                    foreach (Route route in resTemp)
+                    {
+                        res.Add(route);
+                    }
+                    res = resTemp;
+                }
+                else if (quantite == quantiteMax)
+                {
+                    // Si la somme de tous les couples est plus petit que celle d'avant
+                    if (valeur < valeurMin)
+                    {
+                        valeurMin = valeur;
+                        res.Clear();
+                        foreach (Route route in resTemp)
+                        {
+                            res.Add(route);
+                        }
+                        res = resTemp;
+                    }
+                }
+            }
+                        
+            return res;
+        }
+
+
+
+        /// <summary>
+        /// Donne une liste de toutes les permutation possible des éléments 1, 2, 3, ..., n d'un tableau de taille n
+        /// </summary>
+        /// <param name="taille">Taille du tableau</param>
+        /// <returns></returns>
+        private List<int[]> Heap(int taille)
+        {
+            // Initialisation variables utiles
+            int n = taille;
+            List<int[]> res = new List<int[]>();
+            int a;
+
+
+            // On initialise tab avec les les valeurs 1, 2, 3, ..., n
+            int[] tab = new int[n];            
+            for (int j = 0; j < tab.Length; j++)
+            {
+                tab[j] = j;
+            }
+            
+            // On initialise compteur qu'avec des 0
+            int[] compteur = new int[n];
+            for (int j = 0; j < tab.Length; j++)
+            {
+                compteur[j] = 0;
+            }
+
+            int[] tab2 = new int[n];
+            tab.CopyTo(tab2, 0);
+            res.Add(tab2);
+
+            // i indique le niveau de la boucle en cours d'incrémentation
+            int i = 0;
+
+            while(i < n)
+            {
+                if (compteur[i] < i)
+                {
+                    if (i%2 == 0)
+                    {
+                        a = tab[0];
+                        tab[0] = tab[i];
+                        tab[i] = a;
+                    }
+                    else
+                    {
+                        a = tab[i];
+                        tab[i] = tab[compteur[i]];
+                        tab[compteur[i]] = a;
+                    }
+
+                    int[] tab3 = new int[n];
+                    tab.CopyTo(tab3, 0);
+                    res.Add(tab3);
+
+                    compteur[i]++;
+                    i = 0;
+                }
                 else
                 {
-                    if (!(routesArbre.Contains(routes[i])) && lieuxTemp.Contains(routes[i].Depart) && lieuxTemp.Contains(routes[i].Arrivee))
-                    {
-                        lieuxTemp.Remove(routes[i].Depart);
-                        lieuxTemp.Remove(routes[i].Arrivee);
-                        res.Add(routes[i]);
-                    }                                  
+                    compteur[i] = 0;
                     i++;
                 }
             }
+
             return res;
-
-            
         }
-
+    
 
 
         /// <summary>

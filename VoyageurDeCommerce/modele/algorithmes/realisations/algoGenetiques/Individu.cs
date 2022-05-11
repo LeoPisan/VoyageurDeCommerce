@@ -72,7 +72,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         //renvoie un lieu généré aléatoirement dans une liste de lieux à utiliser
         private Lieu LieuAleatoire(ref List<Lieu> lieuxAgenerer)
         {
-            int indice = AlgoGenetique.random.Next(lieuxAgenerer.Count);
+            int indice = AlgoGenetique.Random.Next(lieuxAgenerer.Count);
             Lieu retour = lieuxAgenerer[indice];
             lieuxAgenerer.RemoveAt(indice);
             return (retour);

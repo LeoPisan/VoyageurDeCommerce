@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using VoyageurDeCommerce.modele.distances;
 using VoyageurDeCommerce.modele.lieux;
 
 namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
@@ -80,6 +81,39 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
                 if (random.NextDouble() < tauxMutation)
                     i.Muter();
             }
+        }
+
+        /// <summary>
+        /// cherche le meilleur individu de la population
+        /// </summary>
+        /// <returns>meilleur individu</returns>
+        public Individu MeilleurIndividu()
+        {
+            Population retour = this.MeilleursIndividus(2);
+            return retour.ListeIndividus[0];
+        }
+
+        //retourne les n meilleurs individus de la population
+        private Population MeilleursIndividus(int nbIndividus)
+        {
+            Population retour = new Population(this);
+            while (retour.Size >= nbIndividus)
+            {
+                Individu aRetirer = retour.ListeIndividus[0];
+                int max = FloydWarshall.Distance(aRetirer.ListeLieux[0], aRetirer.ListeLieux[aRetirer.ListeLieux.Count - 1]); //on initialise des valeurs de départ arbitraires, si on ne trouve pas plus grand ce seront elles qui seront retirées
+
+                foreach (Individu l in retour.ListeIndividus) //on cherche l'individu avec la plus grande distance dans la population
+                {
+                    int distance = FloydWarshall.Distance(l.ListeLieux[0], l.ListeLieux[l.ListeLieux.Count - 1]);
+                    if (distance > max)
+                    {
+                        max = distance;
+                        aRetirer = l;
+                    }
+                }
+                retour.Remove(aRetirer); //on retire cet individu et on répète jusqu'à avoir une liste de la taille demandée
+            }
+            return retour;
         }
         #endregion
     }

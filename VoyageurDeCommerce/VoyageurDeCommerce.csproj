@@ -83,6 +83,7 @@
     <Compile Include="modele\algorithmes\realisations\AlgoPlusProcheVoisin.cs" />
     <Compile Include="modele\algorithmes\realisations\AlgorithmeCroissant.cs" />
     <Compile Include="modele\algorithmes\realisations\AlgoVoisinageTournee.cs" />
+    <Compile Include="modele\algorithmes\realisations\Christofides_VersionBrute.cs" />
     <Compile Include="modele\algorithmes\realisations\Christofides.cs" />
     <Compile Include="modele\algorithmes\realisations\InsertionAuPlusLoin.cs" />
     <Compile Include="modele\algorithmes\realisations\InsertionAuPlusProche.cs" />
@@ -161,6 +162,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ressources\Peigne.gph">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ressources\Petersen.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ressources\Tribu.gph">
