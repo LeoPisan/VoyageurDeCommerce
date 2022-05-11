@@ -65,8 +65,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
         /// </summary>
         public void Muter() 
         {
-            var random = new Random();
-            this.ListeLieux = Outils.InverseElements(random.Next(this.ListeLieux.Count - 1), random.Next(this.ListeLieux.Count - 1), this.ListeLieux);
+            this.ListeLieux = Outils.InverseElements(AlgoGenetique.Random.Next(this.ListeLieux.Count - 1), AlgoGenetique.Random.Next(this.ListeLieux.Count - 1), this.ListeLieux);
         }
 
         //renvoie un lieu généré aléatoirement dans une liste de lieux à utiliser
