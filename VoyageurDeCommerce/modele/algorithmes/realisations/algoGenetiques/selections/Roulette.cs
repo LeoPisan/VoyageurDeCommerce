@@ -13,17 +13,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
 
         public Roulette(Population pop)
         {
-            /*
-            roue = new Object[pop.Size, 2]; //assez peu solide, chercher un moyen de contraindre les types double et individu
-            roue[0, 0] = pop.ListeIndividus[0];
-            roue[0, 1] = pop.ListeIndividus[0].Fitness;
-            for (int i = 1; i < pop.Size; i++)
-            {
-
-                roue[i, 0] = pop.ListeIndividus[i];
-                roue[i, 1] = pop.ListeIndividus[i].Fitness + (double)roue[i - 1, 1];
-            }
-            */
             roue = new Dictionary<Individu, double>();
             foreach (Individu ind in pop.ListeIndividus)
             {
@@ -39,24 +28,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
         {
             Individu retour = null;
 
-            /*
-            double fitness = (double)AlgoGenetique.random.Next((int)(100 * (double)roue[roue.GetLongLength(0) - 1, 1]))/100;
-            for (int i = 0; i < roue.GetLongLength(0); i++)
-            {
-                if ((i > 0) && (fitness > (double)roue[i - 1, 1]) && (fitness <= (double)roue[i, 1]))
-                {
-                    retour = (Individu)roue[i, 0];
-                    break;
-                }
-                else if ((i == 0) && ((double)roue[0, 1]) >= fitness)
-                {
-                    retour = (Individu)roue[0, 0];
-                    break;
-                }
-            }
-            return retour;
-            */
-
             double total = 0;
             foreach (KeyValuePair<Individu, double> ind in roue)
             {
@@ -64,8 +35,6 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques.sele
             }
 
             double resultatCible = AlgoGenetique.random.NextDouble() * total; //on prend un nombre flottant aléatoire inférieur à la somme des fitness de tous les éléments de la roue
-
-
 
             double cible = 0;
             foreach (KeyValuePair<Individu, double> ind in roue)
