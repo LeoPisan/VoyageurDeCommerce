@@ -235,7 +235,7 @@ namespace VoyageurDeCommerce.modele.distances
         /// <returns></returns>
         public static int DistanceRoute(Lieu depart, Lieu arrivee, List<Route> routes)
         {
-            int res = infini;
+            int res = infini * 2;
             foreach (Route route in routes)
             {
                 if ((route.Depart == depart && route.Arrivee == arrivee) || (route.Depart == arrivee && route.Arrivee == depart))

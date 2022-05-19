@@ -146,7 +146,7 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             
             // Initialise la variable de résultat
             List<Route> res = new List<Route>();
-            /*
+            
             // Affecte les lieux dans une variable temporaire
             List<Lieu> lieuxTemp = new List<Lieu>(lieux);
 
@@ -172,23 +172,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                     i++;
                 }
             }
-            */
-            int[,] matriceAdjacence = new int[lieux.Count, lieux.Count];
-
-            for (int i = 0; i < matriceAdjacence.GetLength(0); i++)
-            {
-                for (int j = 0; j < matriceAdjacence.GetLength(1); j++)
-                {
-
-                }
-            }
 
             return res;
-            
-
-
-
-            
         }
 
 
