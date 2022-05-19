@@ -22,9 +22,11 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            usineDepart = dernierVisite = Outils.UsineDepart(listeLieux);
+            usineDepart = Outils.UsineDepart(listeLieux);
+            dernierVisite = Outils.UsineDepart(listeLieux);
             FloydWarshall.calculerDistances(listeLieux,listeRoute);
             aVisiter = listeLieux;
+            //this.Tournee.Add(usineDepart);
             while (aVisiter.Count > 0)
             {
                 Lieu suivant = MagasinProcheNonVisite();
@@ -51,9 +53,10 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
             Lieu retour = aVisiter[0];
             foreach (Lieu l in aVisiter)
             {
-                if (FloydWarshall.Distance(dernierVisite, l) <= min)
+                if (FloydWarshall.Distance(dernierVisite, l) < min)
                 {
                     retour = l;
+                    min = FloydWarshall.Distance(dernierVisite, l);
                 }
             }
             return retour;
