@@ -173,6 +173,16 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                 }
             }
             */
+            int[,] matriceAdjacence = new int[lieux.Count, lieux.Count];
+
+            for (int i = 0; i < matriceAdjacence.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriceAdjacence.GetLength(1); j++)
+                {
+
+                }
+            }
+
             return res;
             
 

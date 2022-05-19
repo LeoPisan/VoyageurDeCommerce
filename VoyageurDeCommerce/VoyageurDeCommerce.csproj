@@ -146,19 +146,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="ressources\GrapheBipartieComplet.gph">
+    <Content Include="ressources\Kittell.gph">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ressources\BipartieComplet.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ressources\GrapheBipartieCompletValeurAleatoire.gph">
+    <None Include="ressources\BipartieCompletValeurAleatoire.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ressources\GrapheBipartie.gph">
+    <None Include="ressources\Bipartie.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ressources\Edouard.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ressources\GrapheMétrique.gph">
+    <None Include="ressources\Métrique.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ressources\Peigne.gph">
@@ -189,10 +192,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Resource Include="icon.ico" />
-    <Content Include="ressources\GrapheSimple1.gph">
+    <Content Include="ressources\Simple1.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ressources\GrapheSimple2.gph">
+    <Content Include="ressources\Simple2.gph">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
