@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VoyageurDeCommerce.modele.lieux;
 using VoyageurDeCommerce.modele.distances;
+using System.Diagnostics;
 
 namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
 {
@@ -40,6 +41,8 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
 
         public override void Executer(List<Lieu> listeLieux, List<Route> listeRoute)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             this.lieuxAgenerer = new List<Lieu>(listeLieux);
             FloydWarshall.calculerDistances(listeLieux, listeRoute);
             this.Tournee = new Tournee(listeLieux);
@@ -70,9 +73,9 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations.algoGenetiques
                     fin = true;
                 }
             }
-
+            stopwatch.Stop();
             this.MiseAjourFinale();
-            //en cours de création
+            this.TempsExecution = stopwatch.ElapsedMilliseconds;
         }
 
         /// <summary>
