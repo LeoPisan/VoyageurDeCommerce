@@ -143,15 +143,26 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
         /// <param name="lieux">Lieux du graphe</param>
         private List<Route> Couplage(List<Route> routes, List<Lieu> lieux, List<Route> routesArbre)
         {
+            
+            // Initialise la variable de résultat
             List<Route> res = new List<Route>();
+            /*
+            // Affecte les lieux dans une variable temporaire
             List<Lieu> lieuxTemp = new List<Lieu>(lieux);
+
+            // Variables utiles
             bool debug = true;
             int i = 0;
+
+            // Boucle de travail
             while (debug)
             {
+                // S'il n'y a plus assez de lieux pour faire un couplage OU que l'itération est terminée
                 if (lieuxTemp.Count < 2 || i >= routes.Count) { debug = false; }
+                // Sinon
                 else
                 {
+                    // 
                     if (!(routesArbre.Contains(routes[i])) && lieuxTemp.Contains(routes[i].Depart) && lieuxTemp.Contains(routes[i].Arrivee))
                     {
                         lieuxTemp.Remove(routes[i].Depart);
@@ -161,7 +172,11 @@ namespace VoyageurDeCommerce.modele.algorithmes.realisations
                     i++;
                 }
             }
+            */
             return res;
+            
+
+
 
             
         }
