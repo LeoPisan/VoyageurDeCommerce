@@ -63,13 +63,18 @@ namespace VoyageurDeCommerce.modele.algorithmes
         /// <param name="L"></param>
         /// <param name="T"></param>
         public static int IndexLieuPlusProcheTournee(Lieu L, Tournee T)
-        {
-            int indexLieu = T.ListeLieux.Count - 1;
-            int temp;
+        {            
+            // On initialise avec le premier et dernier magasin de la tournée
             int min = FloydWarshall.DistanceCouple(L, T.ListeLieux[0], T.ListeLieux[T.ListeLieux.Count - 1]);
+            int indexLieu = T.ListeLieux.Count - 1;
+
+            // Pour toutes les autres paires qui se suivent
             for (int i = 0; i < T.ListeLieux.Count - 2; i++)
             {
-                temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
+                // On calcule leur distance
+                int temp = FloydWarshall.DistanceCouple(L, T.ListeLieux[i], T.ListeLieux[i + 1]);
+
+                // Et si elle est plus petite que le minimum, on écrase se dernier avec cette distance en récupérant l'index
                 if (temp < min)
                 {
                     indexLieu = i;
